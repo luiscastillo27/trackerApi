@@ -27,6 +27,18 @@ module.exports = app => {
   //OBTENER DATOS DEL USUARIO
   app.get('/usuarios/obtener/:idUsuario', (request, resp) => {
 
+        
+      var valid = userValid.idValid(request);
+
+      if(valid != "Correcto"){
+          
+          resp.status(500).json({
+              success: false,
+              mensage: valid
+          });
+
+      } else {
+
           var id = request.params.idUsuario;
           UserModel.obtenerUsuario(id, (err, data) => {
 
@@ -40,6 +52,8 @@ module.exports = app => {
               }
             
           });
+
+      }
 
   });
 
@@ -99,6 +113,17 @@ module.exports = app => {
   //ELIMINAR USUARIO
   app.delete('/usuarios/eliminar/:idUsuario', (request, resp) => {
 
+      var valid = userValid.idValid(request);
+
+      if(valid != "Correcto"){
+          
+          resp.status(500).json({
+              success: false,
+              mensage: valid
+          });
+
+      } else {
+
           var id = request.params.idUsuario;
           UserModel.eliminarUsuario(id, (err, data) => {
 
@@ -124,14 +149,17 @@ module.exports = app => {
 
           });
 
+      }
+
   });
 
   //ACTUALIZAR USUARIO
   app.put('/usuarios/actualizar/:idUsuario', (request, resp) => {
 
       var valid = userValid.agregarValid(request);
+      var validid = userValid.idValid(request);
 
-      if(valid != "Correcto"){
+      if(validid != "Correcto" & valid != "Correcto"){
           
           resp.status(500).json({
               success: false,

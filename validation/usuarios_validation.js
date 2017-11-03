@@ -84,3 +84,21 @@ exports.loginValid = function(data){
 	return result;
 
 }
+
+
+//VALIDAR ID
+exports.idValid = function(data){
+
+	var id = data.body.idUsuario;
+
+	if(!id){
+		
+		if(id == null || id.length == 0 || /^\s+$/.test(id)){
+			result = 'El id es obligatorio';
+		}
+
+	} 
+
+	return result;
+
+}
