@@ -10,8 +10,10 @@ var claveSecreta = 'lcz-2_mjp-7';
 exports.crearToken = function(data){
 
 	var cargarToken = {
-		sub: data._id,
-		nombre: data.usuario,
+		idUsuario: data.idUsuario,
+		email: data.email,
+		state: data.state,
+		rango: data.rango,
 		fechaIn: momento().unix(),
 		fechaFn: momento().add(30, 'days').unix()
 	}
