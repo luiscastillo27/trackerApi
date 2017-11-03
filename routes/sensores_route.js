@@ -1,11 +1,11 @@
-const UserModel = require('../models/usuarios_model');
+const SensoresModel = require('../models/sensores_model');
 
 module.exports = app => {
 
-  //LISTAR TODOS LOS USUARIOS
-  app.get('/usuarios/listar', (request, resp) => {
+  //LISTAR TODOS LOS SENSORES
+  app.get('/sensores/listar', (request, resp) => {
 
-      UserModel.listarUsuarios((err, data) => {
+      SensoresModel.listarSensores((err, data) => {
           
           if(data){
               resp.status(200).json(data);
@@ -20,111 +20,121 @@ module.exports = app => {
 
   });
 
-  //OBTENER DATOS DEL USUARIO
-  app.get('/usuarios/obtener/:idUsuario', (request, resp) => {
+  //OBTENER DATOS DEL SENSORES
+  app.get('/sensores/obtener/:idSensor', (request, resp) => {
 
-      var id = request.params.idUsuario;
-      UserModel.obtenerUsuario(id, (err, data) => {
+      var id = request.params.idSensor;
+      SensoresModel.obtenerSensores(id, (err, data) => {
 
-          if(data){
-              resp.status(200).json(data);
-          } else {
+          if(err){
               resp.status(500).json({
                 success: false,
                 mensage: err
               });
+          } else {
+              resp.status(200).json(data);
           }
         
       });
 
   });
 
-  //AGREGA NUEVO USUARIO
-  app.post('/usuarios/agregar', (request, resp) => {
+  //AGREGA NUEVO SENSORES
+  app.post('/sensores/agregar', (request, resp) => {
 
       var data = {
-          email: request.body.email,
-          password: request.body.password,
-          state: request.body.state,
-          rango: request.body.rango
+          stock: request.body.stock,
+          nombre: request.body.nombre
       };
 
-      UserModel.insertarUsuario(data, (err, data) => {
+      SensoresModel.insertarSensores(data, (err, data) => {
 
-          if (data && data.insertId) {
-            resp.status(200).json({
-              success: true,
-              mensage: "Se ha insertado correctamente",
-              data: data
-            });
-            // res.redirect('/users/' + data.insertId);
+          if(err){
+              resp.status(500).json({
+                success: false,
+                mensage: err
+              });
           } else {
-            resp.status(500).json({
-              success: false,
-              mensage: err
-            });
+
+              if (data.mensaje == 'El sensor ya existe') {
+                resp.status(500).json({
+                  success: false,
+                  mensage: 'El sensor ya existe'
+                });
+              }
+
+              if (data.mensaje == 'El sensor ha sido registrado con exito') {
+                resp.status(500).json({
+                  success: false,
+                  mensage: 'El sensor ha sido registrado con exito',
+                  data: data.id
+                });
+              }
+
           }
 
       });
 
   });
 
-  //ELIMINAR USUARIO
-  app.get('/usuarios/eliminar/:idUsuario', (request, resp) => {
+  //ELIMINAR SENSORES
+  app.delete('/sensores/eliminar/:idSensor', (request, resp) => {
 
-      var id = request.params.idUsuario;
-      UserModel.eliminarUsuario(id, (err, data) => {
+      var id = request.params.idSensor;
+      SensoresModel.eliminarSensores(id, (err, data) => {
 
-          if(data){
-              if(data.mensaje == 'Usuario no existe'){
+          if(err){
+              resp.status(500).json({
+                success: false,
+                mensage: err
+              });
+          } else {
+              if(data.mensaje == 'El sensor ya no existe'){
                   resp.status(500).json({
                     success: true,
-                    mensage: 'EL usuario no se encuentra en la db'
+                    mensage: 'EL sensor no se encuentra en la db'
                   });
               }
               if(data.mensaje == 'Se ha eliminado con exito'){
                   resp.status(200).json(data);
-              }
-          } else {
-              resp.status(500).json({
-                success: false,
-                mensage: err
-              });
+              }   
           }
 
       });
 
   });
 
-  //ACTUALIZAR USUARIO
-  app.put('/usuarios/actualizar/:idUsuario', (request, resp) => {
+  //ACTUALIZAR SENSORES
+  app.put('/sensores/actualizar/:idSensor', (request, resp) => {
 
       var data = {
-          email: request.body.email,
-          password: request.body.password,
-          state: request.body.state,
-          rango: request.body.rango
+          stock: request.body.stock,
+          nombre: request.body.nombre
       };
 
-      var id = request.params.idUsuario;
-      UserModel.actualizarUsuario(id, data, (err, result) => {
+      var id = request.params.idSensor;
+      SensoresModel.actualizarSensores(id, data, (err, result) => {
 
-          resp.status(200).json(result);
-          if(resp){
-              if(resp.mensaje == 'Usuario no existe'){
+          if(err){
+              resp.status(500).json({
+                  success: false,
+                  mensage: err
+              });
+          } else {
+
+              if(result.mensaje == 'El sensor no existe'){
                   resp.status(500).json({
                     success: true,
-                    mensage: 'EL usuario no se encuentra en la db'
+                    mensage: 'EL sensor no se encuentra en la db'
                   });
               }
-              if(resp.mensaje == 'Se ha actualizado con exito'){
-                  resp.status(200).json(result);
+              if(result.mensaje == 'Se ha actualizado con exito'){
+                  resp.status(200).json({
+                    success: true,
+                    mensage: 'Se ha actualizado con exito'
+                  });
               }
-          } else {
-              resp.status(500).json({
-                success: false,
-                mensage: err
-              });
+         
           }
 
     });

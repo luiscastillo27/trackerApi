@@ -4,70 +4,89 @@ const conexion = require('../conexion/conexion');;
 const connection = mysql.createConnection(conexion);
 connection.connect();
 
-let userModel = {};
+let sensoresModel = {};
 
-//LISTAR TODOS LOS USUARIOS
-userModel.listarUsuarios = (resp) => {
+//LISTAR TODOS LOS SENSORES
+sensoresModel.listarSensores = (resp) => {
 
     if (connection) {
-        var sql = "SELECT * FROM usuarios ORDER BY idUsuario";
+        var sql = "SELECT * FROM sensores ORDER BY idSensor";
         connection.query(sql,(err, result) => {
-            if (err) {
-              throw err
-            }
-            else {
-              resp(null, result);
-            }
-        });
-    }
-
-};
-
-//OBTENER USUARIOS
-userModel.obtenerUsuario = (id, resp) => {
-
-    if (connection) {
-        var sql = `SELECT * FROM usuarios WHERE idUsuario = ${connection.escape(id)}`;
-        connection.query(sql,(err, result) => {
-            if (err) {
-              throw err
-            }
-            else {
-              resp(null, result);
-            }
-        });
-    }
-
-};
-
-//INSERTAR USUARIO
-userModel.insertarUsuario = (data, resp) => {
-
-    if (connection) {
-        var sql = 'INSERT INTO usuarios SET ?';
-        connection.query(sql, data, (err, result) => {
             if (err) {
               throw err;
-            } else {
-              resp(null, {'insertId': result.insertId})
+            }
+            else {
+              resp(null, result);
             }
         });
     }
 
 };
 
-//ELIMINAR USUARIOS
-userModel.eliminarUsuario = (id, resp) => {
+//OBTENER SENSORES
+sensoresModel.obtenerSensores = (id, resp) => {
 
     if (connection) {
-        var exist = `SELECT * FROM usuarios WHERE idUsuario = ${connection.escape(id)}`;
+        var sql = `SELECT * FROM sensores WHERE idSensor = ${connection.escape(id)}`;
+        connection.query(sql,(err, result) => {
+            if (err) {
+              throw err;
+            }
+            else {
+              resp(null, result);
+            }
+        });
+    }
+
+};
+
+//INSERTAR SENSORES
+sensoresModel.insertarSensores = (data, resp) => {
+
+    if (connection) {
+        var exist = `SELECT * FROM sensores WHERE nombre = ${connection.escape(data.nombre)}`;
+
+        connection.query(exist, (err, ok) => {
+
+            
+            if(ok.length == 0){
+
+                var sql = 'INSERT INTO sensores SET ?';
+                connection.query(sql, data, (err, result) => {
+                    if (err) {
+                      throw err;
+                    } else {
+                      resp(null, {
+                        "mensaje": "El sensor ha sido registrado con exito",
+                        "id": result.insertId
+                      });
+                    }
+                });
+
+            } else {
+                resp(null, {
+                  'mensaje': 'El sensor ya existe'
+                })
+            }
+
+        });
+        
+    }
+
+};
+
+//ELIMINAR SENSORES
+sensoresModel.eliminarSensores = (id, resp) => {
+
+    if (connection) {
+        var exist = `SELECT * FROM sensores WHERE idSensor = ${connection.escape(id)}`;
         connection.query(exist, (err, ok) => {
             
             if(ok.length > 0){
-                var sql = `DELETE  FROM usuarios WHERE idUsuario = ${connection.escape(id)}`;
+                var sql = `DELETE  FROM sensores WHERE idSensor = ${connection.escape(id)}`;
                 connection.query(sql, (err, result) => {
                     if (err) {
-                      throw err
+                      throw err;
                     }
                     else {
                       resp(null, {
@@ -77,7 +96,7 @@ userModel.eliminarUsuario = (id, resp) => {
                 });
             } else {
                 resp(null, {
-                  'mensaje': 'Usuario no existe'
+                  'mensaje': 'El sensor ya no existe'
                 })
             }
             
@@ -86,27 +105,25 @@ userModel.eliminarUsuario = (id, resp) => {
 
 };
 
-//ACTUALIZAR USUARIOS
-userModel.actualizarUsuario = (id, data, resp) => {
+//ACTUALIZAR SENSORES
+sensoresModel.actualizarSensores = (id, data, resp) => {
 
     if (connection) {
-        var exist = `SELECT * FROM usuarios WHERE idUsuario = ${connection.escape(id)}`;
+        var exist = `SELECT * FROM sensores WHERE idSensor = ${connection.escape(id)}`;
         connection.query(exist, (err, ok) => {
             
             if(ok.length > 0){
 
                 var sql = `
-                  UPDATE usuarios SET 
-                  email = ${connection.escape(data.email)} ,
-                  password = ${connection.escape(data.password)} ,
-                  state = ${connection.escape(data.state)} ,
-                  rango = ${connection.escape(data.rango)}
-                  WHERE idUsuario = ${connection.escape(id)}
+                  UPDATE sensores SET 
+                  stock = ${connection.escape(data.stock)} ,
+                  nombre = ${connection.escape(data.nombre)}
+                  WHERE idSensor = ${connection.escape(id)}
                 `;
 
                 connection.query(sql, function(err, res) {
                     if (err) {
-                      throw err
+                      throw err;
                     } else {
                       resp(null, {
                         "mensaje": "Se ha actualizado con exito",
@@ -117,7 +134,7 @@ userModel.actualizarUsuario = (id, data, resp) => {
 
             } else {
                 resp(null, {
-                  'mensaje': 'Usuario no existe'
+                  'mensaje': 'El sensor no existe'
                 })
             }
             
@@ -127,4 +144,4 @@ userModel.actualizarUsuario = (id, data, resp) => {
 };
 
 
-module.exports = userModel;
+module.exports = sensoresModel;

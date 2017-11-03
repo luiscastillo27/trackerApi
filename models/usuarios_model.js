@@ -18,7 +18,7 @@ userModel.listarUsuarios = (resp) => {
         var sql = "SELECT idUsuario, email, state, rango FROM usuarios ORDER BY idUsuario";
         connection.query(sql,(err, result) => {
             if (err) {
-              throw err
+              throw err;
             }
             else {
               resp(null, result);
@@ -35,7 +35,7 @@ userModel.obtenerUsuario = (id, resp) => {
         var sql = `SELECT idUsuario, email, state, rango FROM usuarios WHERE idUsuario = ${connection.escape(id)}`;
         connection.query(sql,(err, result) => {
             if (err) {
-              throw err
+              throw errl
             }
             else {
               resp(null, result);
@@ -90,7 +90,7 @@ userModel.eliminarUsuario = (id, resp) => {
                 var sql = `DELETE  FROM usuarios WHERE idUsuario = ${connection.escape(id)}`;
                 connection.query(sql, (err, result) => {
                     if (err) {
-                      throw err
+                      throw err;
                     }
                     else {
                       resp(null, {
@@ -129,7 +129,7 @@ userModel.actualizarUsuario = (id, data, resp) => {
 
                 connection.query(sql, function(err, res) {
                     if (err) {
-                      throw err
+                      throw err;
                     } else {
                       resp(null, {
                         "mensaje": "Se ha actualizado con exito"

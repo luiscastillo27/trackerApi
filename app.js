@@ -26,8 +26,8 @@ app.use(bodyParser.json());
 
 // routes
 require('./routes/usuarios_route')(app);
-//require('./routes/sensores_route')(app);
-//require('./routes/vehiculos_route')(app);
+require('./routes/sensores_route')(app);
+require('./routes/vehiculos_route')(app);
 
 // static files
 app.use(express.static(path.join(__dirname, 'public')));

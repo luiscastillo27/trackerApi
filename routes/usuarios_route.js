@@ -11,15 +11,15 @@ module.exports = app => {
    
           UserModel.listarUsuarios((err, data) => {
               
-              if(data){
-                  resp.status(200).json(data);
-              } else {
+              if(err){
                   resp.status(500).json({
-                    success: false,
-                    mensage: err
+                      success: false,
+                      mensage: err
                   });
+              } else {
+                  resp.status(200).json(data);
               }
-
+        
           });
 
   });
@@ -42,13 +42,13 @@ module.exports = app => {
           var id = request.params.idUsuario;
           UserModel.obtenerUsuario(id, (err, data) => {
 
-              if(data){
-                  resp.status(200).json(data);
-              } else {
+              if(err){
                   resp.status(500).json({
-                    success: false,
-                    mensage: err
+                      success: false,
+                      mensage: err
                   });
+              } else {
+                  resp.status(200).json(data);
               }
             
           });
@@ -74,7 +74,10 @@ module.exports = app => {
           bcrypt.hash(request.body.password, null, null, function(error, hash){
       
               if (error) {
-                  throw error;
+                  resp.status(500).json({
+                    success: false,
+                    mensage: error
+                  });
               } else {
 
                   var data = {
@@ -87,7 +90,10 @@ module.exports = app => {
                   UserModel.insertarUsuario(data, (err, data) => {
 
                       if(err){
-                          throw err;
+                          resp.status(500).json({
+                            success: false,
+                            mensage: err
+                          });
                       } else {
 
                           if(data.mensaje == "El usuario ha sido registrado con exito"){
@@ -127,7 +133,13 @@ module.exports = app => {
           var id = request.params.idUsuario;
           UserModel.eliminarUsuario(id, (err, data) => {
 
-              if(data){
+              if(err){
+                  resp.status(500).json({
+                      success: false,
+                      mensage: err
+                  });
+              } else {
+
                   if(data.mensaje == 'Usuario no existe'){
                       resp.status(500).json({
                         success: true,
@@ -140,11 +152,7 @@ module.exports = app => {
                         mensage: 'Se ha eliminado con exito'
                       });
                   }
-              } else {
-                  resp.status(500).json({
-                    success: false,
-                    mensage: err
-                  });
+
               }
 
           });
@@ -170,39 +178,46 @@ module.exports = app => {
 
           bcrypt.hash(request.body.password, null, null, function(error, hash){
 
-              var data = {
-                  email: request.body.email,
-                  password: hash,
-                  state: request.body.state,
-                  rango: request.body.rango
-              };
+              if(error){
+                  resp.status(500).json({
+                      success: false,
+                      mensage: error
+                  });
+              } else {
 
-              var id = request.params.idUsuario;
+                  var data = {
+                      email: request.body.email,
+                      password: hash,
+                      state: request.body.state,
+                      rango: request.body.rango
+                  };
 
-              UserModel.actualizarUsuario(id, data, (err, result) => {
-                  
-                  if(err){
-                      resp.status(500).json({
-                        success: false,
-                        mensage: err
-                      });
-                  } 
-                  else {
-                      if(result.mensaje == 'Usuario no existe'){
+                  var id = request.params.idUsuario;
+                  UserModel.actualizarUsuario(id, data, (err, result) => {
+                      
+                      if(err){
                           resp.status(500).json({
-                            success: true,
-                            mensage: 'EL usuario no se encuentra en la db'
+                            success: false,
+                            mensage: err
                           });
+                      } else {
+                          if(result.mensaje == 'Usuario no existe'){
+                              resp.status(500).json({
+                                success: true,
+                                mensage: 'EL usuario no se encuentra en la db'
+                              });
+                          }
+                          if(result.mensaje == 'Se ha actualizado con exito'){
+                              resp.status(200).json({
+                                success: true,
+                                mensage: 'Se ha actualizado con exito'
+                              });
+                          }
                       }
-                      if(result.mensaje == 'Se ha actualizado con exito'){
-                          resp.status(200).json({
-                            success: true,
-                            mensage: 'Se ha actualizado con exito'
-                          });
-                      }
-                  }
 
-              });
+                  });
+
+              }
 
           });
       }
@@ -230,20 +245,28 @@ module.exports = app => {
           }
 
           UserModel.autenticarUsuario(data, (err, result) => {
-              
-              if(result.mensaje == 'Haz ingresado correctamente'){
-                  resp.status(200).json({
-                      success: true,
-                      mensage: 'Haz ingresado correctamente',
-                      token: result.token
-                  });
-              }
 
-              if(result.mensaje == 'Credenciales no validas'){
+              if(err){
                   resp.status(500).json({
                       success: false,
-                      mensage: 'Credenciales no validas'
+                      mensage: err
                   });
+              } else {
+  
+                  if(result.mensaje == 'Haz ingresado correctamente'){
+                      resp.status(200).json({
+                          success: true,
+                          mensage: 'Haz ingresado correctamente',
+                          token: result.token
+                      });
+                  }
+
+                  if(result.mensaje == 'Credenciales no validas'){
+                      resp.status(500).json({
+                          success: false,
+                          mensage: 'Credenciales no validas'
+                      });
+                  }
               }
 
           });
