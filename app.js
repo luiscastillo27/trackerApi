@@ -32,6 +32,7 @@ require('./routes/coordenadas_route')(app);
 require('./routes/direcciones_route')(app);
 require('./routes/mantenimiento_route')(app);
 require('./routes/piezas_route')(app);
+require('./routes/rutas_route')(app);
 
 // static files
 app.use(express.static(path.join(__dirname, 'public')));
