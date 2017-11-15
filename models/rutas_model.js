@@ -62,14 +62,14 @@ RutasModel.insertarRuta = (data, resp) => {
 };
 
 //ELIMINAR SENSORES
-RutasModel.eliminarPieza = (id, resp) => {
+RutasModel.eliminarRuta = (id, resp) => {
 
     if (connection) {
-        var exist = `SELECT * FROM piezas WHERE idPieza = ${connection.escape(id)}`;
+        var exist = `SELECT * FROM rutas WHERE idRuta = ${connection.escape(id)}`;
         connection.query(exist, (err, ok) => {
             
             if(ok.length > 0){
-                var sql = `DELETE  FROM piezas WHERE idPieza = ${connection.escape(id)}`;
+                var sql = `DELETE  FROM rutas WHERE idRuta = ${connection.escape(id)}`;
                 connection.query(sql, (err, result) => {
                     if (err) {
                       throw err;
@@ -82,7 +82,7 @@ RutasModel.eliminarPieza = (id, resp) => {
                 });
             } else {
                 resp(null, {
-                  'mensaje': 'La pieza ya no existe'
+                  'mensaje': 'La ruta ya no existe'
                 })
             }
             
@@ -92,19 +92,20 @@ RutasModel.eliminarPieza = (id, resp) => {
 };
 
 //ACTUALIZAR SENSORES
-RutasModel.actualizarPiezas = (id, data, resp) => {
+RutasModel.actualizarRutas = (id, data, resp) => {
 
     if (connection) {
-        var exist = `SELECT * FROM piezas WHERE idPieza = ${connection.escape(id)}`;
+        var exist = `SELECT * FROM rutas WHERE idRuta = ${connection.escape(id)}`;
         connection.query(exist, (err, ok) => {
             
             if(ok.length > 0){
 
                 var sql = `
-                  UPDATE piezas SET 
-                  stock = ${connection.escape(data.stock)} ,
-                  nombre = ${connection.escape(data.nombre)} 
-                  WHERE idPieza = ${connection.escape(id)}
+                  UPDATE rutas SET 
+                  idDireccion = ${connection.escape(data.idDireccion)} ,
+                  idUsuario = ${connection.escape(data.idUsuario)}, 
+				  fechaI = ${connection.escape(data.fechaI)}
+                  WHERE idRuta = ${connection.escape(id)}
                 `;
 
                 connection.query(sql, function(err, res) {
@@ -120,7 +121,7 @@ RutasModel.actualizarPiezas = (id, data, resp) => {
 
             } else {
                 resp(null, {
-                  'mensaje': 'La pieza no existe'
+                  'mensaje': 'La ruta no existe'
                 })
             }
             

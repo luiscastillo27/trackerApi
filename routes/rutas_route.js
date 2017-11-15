@@ -79,11 +79,11 @@ module.exports = app => {
 
   });
 
-  //ELIMINAR VEHICULOS
-  app.delete('/piezas/eliminar/:idPieza', (request, resp) => {
+  //ELIMINAR RUTAS
+  app.delete('/rutas/eliminar/:idRuta', (request, resp) => {
 
-      var id = request.params.idPieza;
-      RutasModel.eliminarPieza(id, (err, data) => {
+      var id = request.params.idRuta;
+      RutasModel.eliminarRuta(id, (err, data) => {
 
           if(err){
               resp.status(500).json({
@@ -107,16 +107,17 @@ module.exports = app => {
 
   });
 
-  //ACTUALIZAR VEHICULOS
-  app.put('/piezas/actualizar/:idPieza', (request, resp) => {
+  //ACTUALIZAR RUTAS
+  app.put('/rutas/actualizar/:idRuta', (request, resp) => {
 
       var data = {
-         stock: request.body.stock,
-         nombre: request.body.nombre
+         idDireccion: request.body.idDireccion,
+         idUsuario: request.body.idUsuario,
+		 fechaI: request.body.fechaI
       };
 
-      var id = request.params.idPieza;
-      RutasModel.actualizarPiezas(id, data, (err, result) => {
+      var id = request.params.idRuta;
+      RutasModel.actualizarRutas(id, data, (err, result) => {
 
           if(err){
               resp.status(500).json({
@@ -125,10 +126,10 @@ module.exports = app => {
               });
           } else {
 
-              if(result.mensaje == 'La pieza no existe'){
+              if(result.mensaje == 'La ruta no existe'){
                   resp.status(500).json({
                     success: true,
-                    mensage: 'La pieza no se encuentra en la base de datos'
+                    mensage: 'La ruta no se encuentra en la base de datos'
                   });
               }
               if(result.mensaje == 'Se ha actualizado con exito'){
