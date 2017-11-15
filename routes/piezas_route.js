@@ -2,11 +2,12 @@ const PiezasModel = require('../models/piezas_model');
 
 module.exports = app => {
 
-  //LISTAR TODOS LOS VEHICULOS
+  //LISTAR TODOS LAS PIEZAS
   app.get('/piezas/listar', (request, resp) => {
 
       PiezasModel.listarCoordenada((err, data) => {
-          
+          //console.log(err);
+		  //console.log(data);
           if(data){
               resp.status(200).json(data);
           } else {
@@ -20,11 +21,11 @@ module.exports = app => {
 
   });
 
-  //OBTENER DATOS DEL VEHICULOS
-  app.get('/coordenada/obtener/:idCoordenada', (request, resp) => {
+  //OBTENER DATOS DE PIEZAS
+  app.get('/piezas/obtener/:idPieza', (request, resp) => {
 
-      var id = request.params.idCoordenada;
-      CoordenadaModel.obtenerCoordenada(id, (err, data) => {
+      var id = request.params.idPieza;
+      PiezasModel.obtenerPieza(id, (err, data) => {
 
           if(err){
               resp.status(500).json({
@@ -39,15 +40,15 @@ module.exports = app => {
 
   });
 
-  //AGREGA NUEVO VEHICULOS
-  app.post('/coordenada/agregar', (request, resp) => {
+  //AGREGA NUEVA PIEZA
+  app.post('/piezas/agregar', (request, resp) => {
 
       var data = {
-          latitud: request.body.latitud,
-          logitud: request.body.logitud
+          stock: request.body.stock,
+          nombre: request.body.nombre
       };
 
-      CoordenadaModel.insertarCoordenada(data, (err, data) => {
+      PiezasModel.insertarPieza(data, (err, data) => {
 
           if(err){
               resp.status(500).json({
@@ -56,17 +57,17 @@ module.exports = app => {
               });
           } else {
 
-              if (data.mensaje == 'La coordenada ya existe') {
+              if (data.mensaje == 'La pieza ya existe') {
                 resp.status(500).json({
                   success: false,
-                  mensage: 'La coordenada ya existe'
+                  mensage: 'La pieza ya existe'
                 });
               }
 
-              if (data.mensaje == 'La coordenada ha sido registrado con exito') {
+              if (data.mensaje == 'La pieza ha sido registrada con exito') {
                 resp.status(500).json({
                   success: false,
-                  mensage: 'La coordenada ha sido registrado con exito',
+                  mensage: 'La pieza ha sido registrada con exito',
                   data: data.id
                 });
               }
@@ -78,10 +79,10 @@ module.exports = app => {
   });
 
   //ELIMINAR VEHICULOS
-  app.delete('/coordenada/eliminar/:idCoordenada', (request, resp) => {
+  app.delete('/piezas/eliminar/:idPieza', (request, resp) => {
 
-      var id = request.params.idCoordenada;
-      CoordenadaModel.eliminarCoordenada(id, (err, data) => {
+      var id = request.params.idPieza;
+      PiezasModel.eliminarPieza(id, (err, data) => {
 
           if(err){
               resp.status(500).json({
@@ -90,10 +91,10 @@ module.exports = app => {
               });
           } else {
 
-              if(data.mensaje == 'La coordenada ya no existe'){
+              if(data.mensaje == 'La pieza ya no existe'){
                   resp.status(500).json({
                     success: true,
-                    mensage: 'La coordenada no se encuentra en la db'
+                    mensage: 'La pieza no se encuentra en la base de datos'
                   });
               }
               if(data.mensaje == 'Se ha eliminado con exito'){
@@ -123,10 +124,10 @@ module.exports = app => {
               });
           } else {
 
-              if(result.mensaje == 'La coordenada no existe'){
+              if(result.mensaje == 'La pieza no existe'){
                   resp.status(500).json({
                     success: true,
-                    mensage: 'La coordenada no se encuentra en la db'
+                    mensage: 'La pieza no se encuentra en la base de datos'
                   });
               }
               if(result.mensaje == 'Se ha actualizado con exito'){

@@ -23,11 +23,11 @@ PiezasModel.listarCoordenada = (resp) => {
 
 };
 
-//OBTENER SENSORES
-PiezasModel.obtenerCoordenada = (id, resp) => {
+//OBTENER PIEZA
+PiezasModel.obtenerPieza = (id, resp) => {
 
     if (connection) {
-        var sql = `SELECT * FROM coordenadas WHERE idCoordenada = ${connection.escape(id)}`;
+        var sql = `SELECT * FROM piezas WHERE idPieza = ${connection.escape(id)}`;
         connection.query(sql,(err, result) => {
             if (err) {
               throw err;
@@ -41,17 +41,17 @@ PiezasModel.obtenerCoordenada = (id, resp) => {
 };
 
 //INSERTAR SENSORES
-PiezasModel.insertarCoordenada = (data, resp) => {
+PiezasModel.insertarPieza = (data, resp) => {
 
     if (connection) {
         
-                var sql = 'INSERT INTO coordenadas SET ?';
+                var sql = 'INSERT INTO piezas SET ?';
                 connection.query(sql, data, (err, result) => {
                     if (err) {
                       throw err;
                     } else {
                       resp(null, {
-                        "mensaje": "La coordenada  ha sido registrado con exito",
+                        "mensaje": "La pieza ha sido registrada con exito",
                         "id": result.insertId
                       });
                     }
@@ -62,14 +62,14 @@ PiezasModel.insertarCoordenada = (data, resp) => {
 };
 
 //ELIMINAR SENSORES
-PiezasModel.eliminarCoordenada = (id, resp) => {
+PiezasModel.eliminarPieza = (id, resp) => {
 
     if (connection) {
-        var exist = `SELECT * FROM coordenadas WHERE idCoordenada = ${connection.escape(id)}`;
+        var exist = `SELECT * FROM piezas WHERE idPieza = ${connection.escape(id)}`;
         connection.query(exist, (err, ok) => {
             
             if(ok.length > 0){
-                var sql = `DELETE  FROM coordenadas WHERE idCoordenada = ${connection.escape(id)}`;
+                var sql = `DELETE  FROM piezas WHERE idPieza = ${connection.escape(id)}`;
                 connection.query(sql, (err, result) => {
                     if (err) {
                       throw err;
@@ -82,7 +82,7 @@ PiezasModel.eliminarCoordenada = (id, resp) => {
                 });
             } else {
                 resp(null, {
-                  'mensaje': 'La coordenada ya no existe'
+                  'mensaje': 'La pieza ya no existe'
                 })
             }
             
@@ -120,7 +120,7 @@ PiezasModel.actualizarPiezas = (id, data, resp) => {
 
             } else {
                 resp(null, {
-                  'mensaje': 'La coordenada no existe'
+                  'mensaje': 'La pieza no existe'
                 })
             }
             
