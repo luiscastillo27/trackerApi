@@ -44,6 +44,7 @@ module.exports = app => {
 
       var data = {
           idUsuario: request.body.idUsuario,
+          idCoordenada: request.body.idCoordenada,
           pais: request.body.pais,
           cuidad: request.body.cuidad,
           cp: request.body.cp,
@@ -115,6 +116,7 @@ module.exports = app => {
 
       var data = {
           idUsuario: request.body.idUsuario,
+          idCoordenada: request.body.idCoordenada,
           pais: request.body.pais,
           cuidad: request.body.cuidad,
           cp: request.body.cp,
