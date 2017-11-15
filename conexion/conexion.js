@@ -1,7 +1,7 @@
 var config={
   	host: 'localhost',
   	user: 'root',
-  	password: '1234',
+  	password: 'admin',
   	database: 'tracker'
 };
 
