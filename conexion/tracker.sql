@@ -1,10 +1,10 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.4
+-- version 4.7.5
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 31-10-2017 a las 19:07:19
--- Versión del servidor: 5.7.19
+-- Tiempo de generación: 15-11-2017 a las 18:01:06
+-- Versión del servidor: 5.7.20
 -- Versión de PHP: 7.1.7
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -43,6 +43,7 @@ CREATE TABLE `coordenadas` (
 CREATE TABLE `dirrecciones` (
   `idDireccion` int(11) NOT NULL,
   `idUsuario` int(11) NOT NULL,
+  `idCoordenada` int(11) DEFAULT NULL,
   `pais` text NOT NULL,
   `cuidad` text NOT NULL,
   `cp` int(11) NOT NULL,
@@ -112,10 +113,17 @@ CREATE TABLE `sensores` (
 CREATE TABLE `usuarios` (
   `idUsuario` int(11) NOT NULL,
   `email` varchar(27) NOT NULL,
-  `password` varchar(27) NOT NULL,
+  `password` varchar(300) NOT NULL DEFAULT '',
   `state` int(11) NOT NULL,
   `rango` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `usuarios`
+--
+
+INSERT INTO `usuarios` (`idUsuario`, `email`, `password`, `state`, `rango`) VALUES
+(1, 'luisyosemite@gmail.com', '$2a$10$2ZVx0ZZ49h1GSwFxFXCWHOn4GFsvRiA1jXt342bp3lWs67dAsLi1q', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -216,7 +224,7 @@ ALTER TABLE `rutas`
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `vehiculos`
