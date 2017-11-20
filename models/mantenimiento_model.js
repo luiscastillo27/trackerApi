@@ -103,7 +103,6 @@ mantenimientoModel.actualizarMantenimiento = (id, data, resp) => {
                 var sql = `
                   UPDATE mantenimientos SET 
                   idVehiculo = ${connection.escape(data.idVehiculo)} ,
-                  idCosa = ${connection.escape(data.idCosa)} ,
                   tipo = ${connection.escape(data.tipo)} ,
                   fechaI = ${connection.escape(data.fechaI)} ,
                   fechaT = ${connection.escape(data.fechaT)}

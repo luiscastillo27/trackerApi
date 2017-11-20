@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 15-11-2017 a las 18:01:06
+-- Tiempo de generación: 20-11-2017 a las 06:56:36
 -- Versión del servidor: 5.7.20
 -- Versión de PHP: 7.1.7
 
@@ -34,6 +34,18 @@ CREATE TABLE `coordenadas` (
   `logitud` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Volcado de datos para la tabla `coordenadas`
+--
+
+INSERT INTO `coordenadas` (`idCoordenada`, `latitud`, `logitud`) VALUES
+(1, 19.699485994162497, -98.72451782226562),
+(2, 19.423858594979777, -98.98956298828125),
+(3, 19.69172830299251, -98.45947265625),
+(4, 19.699485994162497, -98.72451782226562),
+(5, 19.826141627230633, -98.98956298828125),
+(6, 19.423858594979777, -99.13101196289062);
+
 -- --------------------------------------------------------
 
 --
@@ -52,6 +64,13 @@ CREATE TABLE `dirrecciones` (
   `numero` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Volcado de datos para la tabla `dirrecciones`
+--
+
+INSERT INTO `dirrecciones` (`idDireccion`, `idUsuario`, `idCoordenada`, `pais`, `cuidad`, `cp`, `calle`, `colonia`, `numero`) VALUES
+(1, 1, 1, 'Mexico', 'CDMX', 19290, 'Portalegre', 'Real Toledo', 111);
+
 -- --------------------------------------------------------
 
 --
@@ -61,11 +80,17 @@ CREATE TABLE `dirrecciones` (
 CREATE TABLE `mantenimientos` (
   `idMantenimiento` int(11) NOT NULL,
   `idVehiculo` int(11) NOT NULL,
-  `idCosa` int(11) NOT NULL,
   `tipo` enum('Electrico','Mecanico') DEFAULT NULL,
   `fechaI` varchar(27) NOT NULL,
   `fechaT` varchar(27) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `mantenimientos`
+--
+
+INSERT INTO `mantenimientos` (`idMantenimiento`, `idVehiculo`, `tipo`, `fechaI`, `fechaT`) VALUES
+(1, 1, 'Electrico', '27/03/15', '27/04/15');
 
 -- --------------------------------------------------------
 
@@ -79,6 +104,16 @@ CREATE TABLE `piezas` (
   `nombre` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Volcado de datos para la tabla `piezas`
+--
+
+INSERT INTO `piezas` (`idPieza`, `stock`, `nombre`) VALUES
+(1, 27, 'pieza 1'),
+(2, 15, 'pieza 2'),
+(3, 72, 'pieza 3'),
+(4, 51, 'pieza 4');
+
 -- --------------------------------------------------------
 
 --
@@ -89,8 +124,18 @@ CREATE TABLE `rutas` (
   `idRuta` int(11) NOT NULL,
   `idDireccion` int(11) NOT NULL,
   `IdUsuario` int(11) NOT NULL,
-  `fechaI` varchar(27) NOT NULL
+  `articulo` varchar(127) DEFAULT NULL,
+  `fechaI` varchar(27) NOT NULL,
+  `fechaF` varchar(27) DEFAULT '',
+  `estado` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `rutas`
+--
+
+INSERT INTO `rutas` (`idRuta`, `idDireccion`, `IdUsuario`, `articulo`, `fechaI`, `fechaF`, `estado`) VALUES
+(1, 1, 1, 'iPhone 5s', '27/03/15', '27/04/15', 1);
 
 -- --------------------------------------------------------
 
@@ -103,6 +148,16 @@ CREATE TABLE `sensores` (
   `stock` int(11) NOT NULL,
   `nombre` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `sensores`
+--
+
+INSERT INTO `sensores` (`idSensor`, `stock`, `nombre`) VALUES
+(1, 27, 'sensor 1'),
+(2, 15, 'sensor 2'),
+(3, 72, 'sensor 3'),
+(4, 51, 'sensor 4');
 
 -- --------------------------------------------------------
 
@@ -141,6 +196,15 @@ CREATE TABLE `vehiculos` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
+-- Volcado de datos para la tabla `vehiculos`
+--
+
+INSERT INTO `vehiculos` (`idVehiculo`, `marca`, `modelo`, `matricula`, `tipo`, `anio`) VALUES
+(1, 'Ford', 'Fiestaikon', '444-XKD', 'carro', 2012),
+(2, 'Ford', 'Mustang', '271-SXD', 'carro', 2019),
+(3, 'Ford', 'Fiesta', '152-ZJM', 'carro', 2015);
+
+--
 -- Índices para tablas volcadas
 --
 
@@ -175,6 +239,12 @@ ALTER TABLE `rutas`
   ADD PRIMARY KEY (`idRuta`);
 
 --
+-- Indices de la tabla `sensores`
+--
+ALTER TABLE `sensores`
+  ADD PRIMARY KEY (`idSensor`);
+
+--
 -- Indices de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
@@ -194,31 +264,37 @@ ALTER TABLE `vehiculos`
 -- AUTO_INCREMENT de la tabla `coordenadas`
 --
 ALTER TABLE `coordenadas`
-  MODIFY `idCoordenada` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idCoordenada` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `dirrecciones`
 --
 ALTER TABLE `dirrecciones`
-  MODIFY `idDireccion` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idDireccion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `mantenimientos`
 --
 ALTER TABLE `mantenimientos`
-  MODIFY `idMantenimiento` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idMantenimiento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `piezas`
 --
 ALTER TABLE `piezas`
-  MODIFY `idPieza` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idPieza` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `rutas`
 --
 ALTER TABLE `rutas`
-  MODIFY `idRuta` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idRuta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT de la tabla `sensores`
+--
+ALTER TABLE `sensores`
+  MODIFY `idSensor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
@@ -230,7 +306,7 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `vehiculos`
 --
 ALTER TABLE `vehiculos`
-  MODIFY `idVehiculo` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idVehiculo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -10,7 +10,15 @@ let RutasModel = {};
 RutasModel.listarRutas = (resp) => {
 
     if (connection) {
-        var sql = "SELECT * FROM rutas ORDER BY idRuta";
+        var sql = 
+                  `SELECT dirrecciones.idDireccion, rutas.idRuta,rutas.IdUsuario, rutas.articulo, dirrecciones.pais, dirrecciones.cuidad, dirrecciones.cp, dirrecciones.calle, dirrecciones.colonia, dirrecciones.numero,
+                  coordenadas.latitud, coordenadas.logitud, rutas.fechaI, rutas.fechaF, rutas.estado
+                  FROM dirrecciones
+                  JOIN rutas ON rutas.idDireccion = dirrecciones.idDireccion
+                  JOIN coordenadas ON coordenadas.idCoordenada = dirrecciones.idCoordenada
+                  ORDER BY rutas.estado
+        `;
+
         connection.query(sql,(err, result) => {
             if (err) {
               throw err;
@@ -27,7 +35,16 @@ RutasModel.listarRutas = (resp) => {
 RutasModel.obtenerRuta = (id, resp) => {
 
     if (connection) {
-        var sql = `SELECT * FROM rutas WHERE idRuta = ${connection.escape(id)}`;
+
+        var sql = 
+                  `SELECT rutas.idRuta,rutas.IdUsuario, rutas.articulo, dirrecciones.pais, dirrecciones.cuidad, dirrecciones.cp, dirrecciones.calle, dirrecciones.colonia, dirrecciones.numero,
+                  coordenadas.latitud, coordenadas.logitud, rutas.fechaI, rutas.fechaF, rutas.estado
+                  FROM dirrecciones
+                  JOIN rutas ON rutas.idDireccion = dirrecciones.idDireccion
+                  JOIN coordenadas ON coordenadas.idCoordenada = dirrecciones.idCoordenada
+                  WHERE dirrecciones.idDireccion = ${connection.escape(id)}
+        `;
+
         connection.query(sql,(err, result) => {
             if (err) {
               throw err;
@@ -103,8 +120,11 @@ RutasModel.actualizarRutas = (id, data, resp) => {
                 var sql = `
                   UPDATE rutas SET 
                   idDireccion = ${connection.escape(data.idDireccion)} ,
-                  idUsuario = ${connection.escape(data.idUsuario)}, 
-				  fechaI = ${connection.escape(data.fechaI)}
+                  idUsuario = ${connection.escape(data.idUsuario)},  
+                  articulo = ${connection.escape(data.articulo)},
+				          fechaI = ${connection.escape(data.fechaI)},
+                  fechaF = ${connection.escape(data.fechaF)},
+                  estado = ${connection.escape(data.estado)},
                   WHERE idRuta = ${connection.escape(id)}
                 `;
 

@@ -44,7 +44,6 @@ module.exports = app => {
 
       var data = {
           idVehiculo: request.body.idVehiculo,
-          idCosa: request.body.idCosa,
           tipo: request.body.tipo,
           fechaI: request.body.fechaI,
           fechaT: request.body.fechaT
@@ -113,7 +112,6 @@ module.exports = app => {
 
       var data = {
           idVehiculo: request.body.idVehiculo,
-          idCosa: request.body.idCosa,
           tipo: request.body.tipo,
           fechaI: request.body.fechaI,
           fechaT: request.body.fechaT

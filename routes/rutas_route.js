@@ -9,7 +9,11 @@ module.exports = app => {
           //console.log(err);
 		  //console.log(data);
           if(data){
-              resp.status(200).json(data);
+              resp.status(200).json({
+                  success: false,
+                  mensage: 'Listando las rutas del empleado',
+                  data: data
+              });
           } else {
               resp.status(500).json({
                 success: false,
@@ -33,7 +37,11 @@ module.exports = app => {
                 mensage: err
               });
           } else {
-              resp.status(200).json(data);
+              resp.status(200).json({
+                  success: false,
+                  mensage: 'Peticion hecha correctamente',
+                  data: data
+              });
           }
         
       });
@@ -45,8 +53,11 @@ module.exports = app => {
 
       var data = {
           idDireccion: request.body.idDireccion,
-          idUsuario: request.body.idUsuario,
-		  fechaI: request.body.fechaI
+          idUsuario: request.body.idUsuario, 
+          articulo: request.body.articulo,
+		      fechaI: request.body.fechaI,
+          fechaF: request.body.fechaF,
+          estado: request.body.estado
       };
 
       RutasModel.insertarRuta(data, (err, data) => {
@@ -111,9 +122,12 @@ module.exports = app => {
   app.put('/rutas/actualizar/:idRuta', (request, resp) => {
 
       var data = {
-         idDireccion: request.body.idDireccion,
-         idUsuario: request.body.idUsuario,
-		 fechaI: request.body.fechaI
+          idDireccion: request.body.idDireccion,
+          idUsuario: request.body.idUsuario,
+          articulo: request.body.articulo,
+		      fechaI: request.body.fechaI,
+          fechaF: request.body.fechaF,
+          estado: request.body.estado
       };
 
       var id = request.params.idRuta;
