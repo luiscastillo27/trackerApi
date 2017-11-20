@@ -3,9 +3,10 @@ const RutasModel = require('../models/rutas_model');
 module.exports = app => {
 
   //LISTAR TODOS LAS RUTAS
-  app.get('/rutas/listar', (request, resp) => {
+  app.get('/rutas/listar/:IdUsuario', (request, resp) => {
 
-      RutasModel.listarRutas((err, data) => {
+      var id = request.params.IdUsuario;
+      RutasModel.listarRutas(id, (err, data) => {
           //console.log(err);
 		  //console.log(data);
           if(data){

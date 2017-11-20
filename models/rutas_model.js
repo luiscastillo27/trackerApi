@@ -7,16 +7,16 @@ connection.connect();
 let RutasModel = {};
 
 //LISTAR TODOS LOS SENSORES
-RutasModel.listarRutas = (resp) => {
+RutasModel.listarRutas = (id, resp) => {
 
     if (connection) {
         var sql = 
-                  `SELECT dirrecciones.idDireccion, rutas.idRuta,rutas.IdUsuario, rutas.articulo, dirrecciones.pais, dirrecciones.cuidad, dirrecciones.cp, dirrecciones.calle, dirrecciones.colonia, dirrecciones.numero,
+                  `SELECT dirrecciones.idDireccion, rutas.idRuta, rutas.IdUsuario, rutas.articulo, dirrecciones.pais, dirrecciones.cuidad, dirrecciones.cp, dirrecciones.calle, dirrecciones.colonia, dirrecciones.numero,
                   coordenadas.latitud, coordenadas.logitud, rutas.fechaI, rutas.fechaF, rutas.estado
                   FROM dirrecciones
                   JOIN rutas ON rutas.idDireccion = dirrecciones.idDireccion
                   JOIN coordenadas ON coordenadas.idCoordenada = dirrecciones.idCoordenada
-                  ORDER BY rutas.estado
+                  WHERE rutas.IdUsuario = ${connection.escape(id)} ORDER BY rutas.estado 
         `;
 
         connection.query(sql,(err, result) => {
