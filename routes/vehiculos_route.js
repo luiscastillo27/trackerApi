@@ -45,6 +45,7 @@ module.exports = app => {
       var data = {
           marca: request.body.marca,
           modelo: request.body.modelo,
+          idUsuario: request.body.idUsuario,
           matricula: request.body.matricula,
           tipo: request.body.tipo,
           anio: request.body.anio
@@ -114,6 +115,7 @@ module.exports = app => {
       var data = {
           marca: request.body.marca,
           modelo: request.body.modelo,
+          idUsuario: request.body.idUsuario,
           matricula: request.body.matricula,
           tipo: request.body.tipo,
           anio: request.body.anio

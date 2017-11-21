@@ -7,6 +7,23 @@ connection.connect();
 let RutasModel = {};
 
 //LISTAR TODOS LOS SENSORES
+RutasModel.listarTodosRutas = (resp) => {
+
+    if (connection) {
+        var sql = `SELECT * FROM rutas ORDER BY rutas.estado`;
+        connection.query(sql,(err, result) => {
+            if (err) {
+              throw err;
+            }
+            else {
+              resp(null, result);
+            }
+        });
+    }
+
+};
+
+//LISTAR TODOS LOS SENSORES
 RutasModel.listarRutas = (id, resp) => {
 
     if (connection) {

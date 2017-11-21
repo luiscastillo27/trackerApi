@@ -3,12 +3,33 @@ const RutasModel = require('../models/rutas_model');
 module.exports = app => {
 
   //LISTAR TODOS LAS RUTAS
+  app.get('/rutas/listarTodos', (request, resp) => {
+
+      RutasModel.listarTodosRutas((err, data) => {
+
+          if(data){
+              resp.status(200).json({
+                  success: false,
+                  mensage: 'Listando las rutas',
+                  data: data
+              });
+          } else {
+              resp.status(500).json({
+                success: false,
+                mensage: err
+              });
+          }
+
+      });
+
+  });
+
+  //LISTAR TODOS LAS RUTAS DEL USUARIO
   app.get('/rutas/listar/:IdUsuario', (request, resp) => {
 
       var id = request.params.IdUsuario;
       RutasModel.listarRutas(id, (err, data) => {
-          //console.log(err);
-		  //console.log(data);
+
           if(data){
               resp.status(200).json({
                   success: false,

@@ -6,11 +6,37 @@ connection.connect();
 
 let mantenimientoModel = {};
 
-//LISTAR TODOS LOS SENSORES
-mantenimientoModel.listarMantenimiento = (resp) => {
+//LISTAR TODOS MANTENIMIENTO
+mantenimientoModel.listarTodosMantenimiento = (resp) => {
 
     if (connection) {
-        var sql = "SELECT * FROM mantenimientos ORDER BY idMantenimiento";
+        var sql = `
+            SELECT * FROM mantenimientos ORDER BY idVehiculo
+        `;
+        connection.query(sql,(err, result) => {
+            if (err) {
+              throw err;
+            }
+            else {
+              resp(null, result);
+            }
+        });
+    }
+
+};
+
+//LISTAR TODOS MANTENIMIENTO
+mantenimientoModel.listarMantenimiento = (id, resp) => {
+
+    if (connection) {
+        var sql = `
+            SELECT mantenimientos.idMantenimiento, vehiculos.marca, vehiculos.modelo, vehiculos.matricula, vehiculos.tipo, vehiculos.anio,
+            mantenimientos.tipo, mantenimientos.fechaI, mantenimientos.fechaT
+            FROM vehiculos
+            JOIN  mantenimientos
+            ON mantenimientos.idVehiculo = vehiculos.idVehiculo
+            WHERE vehiculos.idUsuario = ${connection.escape(id)}
+        `;
         connection.query(sql,(err, result) => {
             if (err) {
               throw err;
@@ -27,7 +53,14 @@ mantenimientoModel.listarMantenimiento = (resp) => {
 mantenimientoModel.obtenerMantenimiento = (id, resp) => {
 
     if (connection) {
-        var sql = `SELECT * FROM mantenimientos WHERE idMantenimiento = ${connection.escape(id)}`;
+        var sql = `
+            SELECT mantenimientos.idMantenimiento, vehiculos.marca, vehiculos.modelo, vehiculos.matricula, vehiculos.tipo, vehiculos.anio,
+            mantenimientos.tipo, mantenimientos.fechaI, mantenimientos.fechaT, coordenadas.latitud, coordenadas.logitud
+            FROM vehiculos
+            JOIN  mantenimientos ON mantenimientos.idVehiculo = vehiculos.idVehiculo
+            JOIN  coordenadas ON coordenadas.idCoordenada = mantenimientos.idCoordenada
+            WHERE mantenimientos.idMantenimiento = ${connection.escape(id)}
+        `;
         connection.query(sql,(err, result) => {
             if (err) {
               throw err;
@@ -102,7 +135,8 @@ mantenimientoModel.actualizarMantenimiento = (id, data, resp) => {
 
                 var sql = `
                   UPDATE mantenimientos SET 
-                  idVehiculo = ${connection.escape(data.idVehiculo)} ,
+                  idVehiculo = ${connection.escape(data.idVehiculo)}, 
+                  idCoordenada = ${connection.escape(data.idCoordenada)},
                   tipo = ${connection.escape(data.tipo)} ,
                   fechaI = ${connection.escape(data.fechaI)} ,
                   fechaT = ${connection.escape(data.fechaT)}

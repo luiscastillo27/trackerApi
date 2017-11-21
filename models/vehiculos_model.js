@@ -117,9 +117,10 @@ vehiculosModel.actualizarSensores = (id, data, resp) => {
                 var sql = `
                   UPDATE vehiculos SET 
                   marca = ${connection.escape(data.marca)} ,
-                  modelo = ${connection.escape(data.modelo)} ,
-                  matricula = ${connection.escape(data.matricula)} ,
-                  tipo = ${connection.escape(data.tipo)} ,
+                  modelo = ${connection.escape(data.modelo)},
+                  matricula = ${connection.escape(data.matricula)}, 
+                  idUsuario = ${connection.escape(data.idUsuario)}, 
+                  tipo = ${connection.escape(data.tipo)},
                   anio = ${connection.escape(data.anio)}
                   WHERE idVehiculo = ${connection.escape(id)}
                 `;

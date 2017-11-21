@@ -3,12 +3,40 @@ const MantenimientoModel = require('../models/mantenimiento_model');
 module.exports = app => {
 
   //LISTAR TODOS LOS VEHICULOS
-  app.get('/mantenimiento/listar', (request, resp) => {
+  app.get('/mantenimiento/listarTodos', (request, resp) => {
 
-      MantenimientoModel.listarMantenimiento((err, data) => {
+      MantenimientoModel.listarTodosMantenimiento( (err, data) => {
           
           if(data){
-              resp.status(200).json(data);
+              resp.status(200).json({
+                  success: false,
+                  mensage: 'Listando los mantenimientos del vehiculo',
+                  data: data
+              });
+          } else {
+              resp.status(500).json({
+                success: false,
+                mensage: err
+              });
+          }
+
+      });
+
+  });
+
+
+  //LISTAR  VEHICULOS POR USUARIO
+  app.get('/mantenimiento/listar/:idUsuario', (request, resp) => {
+
+      var id = request.params.idUsuario;
+      MantenimientoModel.listarMantenimiento(id, (err, data) => {
+          
+          if(data){
+              resp.status(200).json({
+                  success: false,
+                  mensage: 'Listando los mantenimientos del vehiculo',
+                  data: data
+              });
           } else {
               resp.status(500).json({
                 success: false,
@@ -32,7 +60,11 @@ module.exports = app => {
                 mensage: err
               });
           } else {
-              resp.status(200).json(data);
+              resp.status(200).json({
+                  success: false,
+                  mensage: 'Peticion hecha correctamente',
+                  data: data
+              });
           }
         
       });
@@ -44,7 +76,8 @@ module.exports = app => {
 
       var data = {
           idVehiculo: request.body.idVehiculo,
-          tipo: request.body.tipo,
+          idCoordenada: request.body.idCoordenada,
+          tipo: request.body.tipo, 
           fechaI: request.body.fechaI,
           fechaT: request.body.fechaT
       };
@@ -112,6 +145,7 @@ module.exports = app => {
 
       var data = {
           idVehiculo: request.body.idVehiculo,
+          idCoordenada: request.body.idCoordenada,
           tipo: request.body.tipo,
           fechaI: request.body.fechaI,
           fechaT: request.body.fechaT

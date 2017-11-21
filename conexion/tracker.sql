@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 20-11-2017 a las 06:56:36
+-- Tiempo de generación: 21-11-2017 a las 01:13:09
 -- Versión del servidor: 5.7.20
 -- Versión de PHP: 7.1.7
 
@@ -80,6 +80,7 @@ INSERT INTO `dirrecciones` (`idDireccion`, `idUsuario`, `idCoordenada`, `pais`, 
 CREATE TABLE `mantenimientos` (
   `idMantenimiento` int(11) NOT NULL,
   `idVehiculo` int(11) NOT NULL,
+  `idCoordenada` int(11) DEFAULT NULL,
   `tipo` enum('Electrico','Mecanico') DEFAULT NULL,
   `fechaI` varchar(27) NOT NULL,
   `fechaT` varchar(27) NOT NULL
@@ -89,8 +90,8 @@ CREATE TABLE `mantenimientos` (
 -- Volcado de datos para la tabla `mantenimientos`
 --
 
-INSERT INTO `mantenimientos` (`idMantenimiento`, `idVehiculo`, `tipo`, `fechaI`, `fechaT`) VALUES
-(1, 1, 'Electrico', '27/03/15', '27/04/15');
+INSERT INTO `mantenimientos` (`idMantenimiento`, `idVehiculo`, `idCoordenada`, `tipo`, `fechaI`, `fechaT`) VALUES
+(1, 1, 1, 'Electrico', '27/03/15', '27/04/15');
 
 -- --------------------------------------------------------
 
@@ -188,6 +189,7 @@ INSERT INTO `usuarios` (`idUsuario`, `email`, `password`, `state`, `rango`) VALU
 
 CREATE TABLE `vehiculos` (
   `idVehiculo` int(11) NOT NULL,
+  `idUsuario` int(11) DEFAULT NULL,
   `marca` text NOT NULL,
   `modelo` text NOT NULL,
   `matricula` varchar(10) NOT NULL,
@@ -199,10 +201,10 @@ CREATE TABLE `vehiculos` (
 -- Volcado de datos para la tabla `vehiculos`
 --
 
-INSERT INTO `vehiculos` (`idVehiculo`, `marca`, `modelo`, `matricula`, `tipo`, `anio`) VALUES
-(1, 'Ford', 'Fiestaikon', '444-XKD', 'carro', 2012),
-(2, 'Ford', 'Mustang', '271-SXD', 'carro', 2019),
-(3, 'Ford', 'Fiesta', '152-ZJM', 'carro', 2015);
+INSERT INTO `vehiculos` (`idVehiculo`, `idUsuario`, `marca`, `modelo`, `matricula`, `tipo`, `anio`) VALUES
+(1, 1, 'Ford', 'Fiestaikon', '444-XKD', 'carro', 2012),
+(2, 1, 'Ford', 'Mustang', '271-SXD', 'carro', 2019),
+(3, 1, 'Ford', 'Fiesta', '152-ZJM', 'carro', 2015);
 
 --
 -- Índices para tablas volcadas
