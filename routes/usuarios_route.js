@@ -28,16 +28,16 @@ module.exports = app => {
   app.get('/usuarios/obtener/:idUsuario', (request, resp) => {
 
         
-      var valid = userValid.idValid(request);
+      // var valid = userValid.idValid(request);
 
-      if(valid != "Correcto"){
+      // if(valid != "Correcto"){
           
-          resp.status(500).json({
-              success: false,
-              mensage: valid
-          });
+      //     resp.status(500).json({
+      //         success: false,
+      //         mensage: valid
+      //     });
 
-      } else {
+      // } else {
 
           var id = request.params.idUsuario;
           UserModel.obtenerUsuario(id, (err, data) => {
@@ -53,23 +53,23 @@ module.exports = app => {
             
           });
 
-      }
+      //}
 
   });
 
   //AGREGA NUEVO USUARIO
   app.post('/usuarios/agregar', (request, resp) => {
   
-      var valid = userValid.agregarValid(request);
+      // var valid = userValid.agregarValid(request);
 
-      if(valid != "Correcto"){
+      // if(valid != "Correcto"){
           
-          resp.status(500).json({
-              success: false,
-              mensage: valid
-          });
+      //     resp.status(500).json({
+      //         success: false,
+      //         mensage: valid
+      //     });
 
-      } else {
+      // } else {
           
           bcrypt.hash(request.body.password, null, null, function(error, hash){
       
@@ -111,7 +111,7 @@ module.exports = app => {
               
           });
 
-      }
+      //}
 
 
   });
@@ -119,16 +119,16 @@ module.exports = app => {
   //ELIMINAR USUARIO
   app.delete('/usuarios/eliminar/:idUsuario', (request, resp) => {
 
-      var valid = userValid.idValid(request);
+      // var valid = userValid.idValid(request);
 
-      if(valid != "Correcto"){
+      // if(valid != "Correcto"){
           
-          resp.status(500).json({
-              success: false,
-              mensage: valid
-          });
+      //     resp.status(500).json({
+      //         success: false,
+      //         mensage: valid
+      //     });
 
-      } else {
+      // } else {
 
           var id = request.params.idUsuario;
           UserModel.eliminarUsuario(id, (err, data) => {
@@ -157,24 +157,24 @@ module.exports = app => {
 
           });
 
-      }
+      //}
 
   });
 
   //ACTUALIZAR USUARIO
   app.put('/usuarios/actualizar/:idUsuario', (request, resp) => {
 
-      var valid = userValid.agregarValid(request);
-      var validid = userValid.idValid(request);
+      // var valid = userValid.agregarValid(request);
+      // var validid = userValid.idValid(request);
 
-      if(validid != "Correcto" & valid != "Correcto"){
+      // if(validid != "Correcto" & valid != "Correcto"){
           
-          resp.status(500).json({
-              success: false,
-              mensage: valid
-          });
+      //     resp.status(500).json({
+      //         success: false,
+      //         mensage: valid
+      //     });
 
-      } else {
+      // } else {
 
           bcrypt.hash(request.body.password, null, null, function(error, hash){
 
@@ -220,7 +220,7 @@ module.exports = app => {
               }
 
           });
-      }
+      //}
     
   });
 
@@ -228,16 +228,16 @@ module.exports = app => {
   //AUTENTICAR USUARIO
   app.post('/usuarios/autenticar', (request, resp) => {
 
-      var valid = userValid.loginValid(request);
+      // var valid = userValid.loginValid(request);
 
-      if(valid != "Correcto"){
+      // if(valid != "Correcto"){
           
-          resp.status(500).json({
-              success: false,
-              mensage: valid
-          });
+      //     resp.status(500).json({
+      //         success: false,
+      //         mensage: valid
+      //     });
 
-      } else {
+      // } else {
 
           var data = {
               email: request.body.email,
@@ -271,7 +271,7 @@ module.exports = app => {
 
           });
 
-      }
+      //}
 
   });
     

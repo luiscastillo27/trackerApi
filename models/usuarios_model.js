@@ -62,7 +62,7 @@ userModel.insertarUsuario = (data, resp) => {
                     } else {
                       resp(null, {
                         "mensaje": "El usuario ha sido registrado con exito",
-                        "id": result.insertId
+                        "id": result
                       });
                     }
                 });
