@@ -254,7 +254,8 @@ module.exports = app => {
                       resp.status(200).json({
                           success: true,
                           mensage: 'Haz ingresado correctamente',
-                          token: result.token
+                          rango: result.rango,
+                          token: result.token,
                       });
                   }
 

@@ -178,6 +178,7 @@ userModel.autenticarUsuario = (data, resp) => {
 
                             resp(null, {
                                 "mensaje": "Haz ingresado correctamente",
+                                "rango": ok[0].rango,
                                 "token": token.crearToken(setoken)
                             });
 
