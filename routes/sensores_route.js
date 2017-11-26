@@ -57,14 +57,14 @@ module.exports = app => {
           } else {
 
               if (data.mensaje == 'El sensor ya existe') {
-                resp.status(500).json({
+                resp.status(200).json({
                   success: false,
                   mensage: 'El sensor ya existe'
                 });
               }
 
               if (data.mensaje == 'El sensor ha sido registrado con exito') {
-                resp.status(500).json({
+                resp.status(200).json({
                   success: false,
                   mensage: 'El sensor ha sido registrado con exito',
                   data: data.id
@@ -90,7 +90,7 @@ module.exports = app => {
               });
           } else {
               if(data.mensaje == 'El sensor ya no existe'){
-                  resp.status(500).json({
+                  resp.status(200).json({
                     success: true,
                     mensage: 'EL sensor no se encuentra en la db'
                   });
@@ -123,7 +123,7 @@ module.exports = app => {
           } else {
 
               if(result.mensaje == 'El sensor no existe'){
-                  resp.status(500).json({
+                  resp.status(200).json({
                     success: true,
                     mensage: 'EL sensor no se encuentra en la db'
                   });

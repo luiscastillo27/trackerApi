@@ -83,7 +83,6 @@ module.exports = app => {
                   var data = {
                       email: request.body.email,
                       password: hash,
-                      state: request.body.state,
                       rango: request.body.rango
                   };
 
@@ -101,7 +100,7 @@ module.exports = app => {
                           }
 
                           if(data.mensaje == "Usuario ya existe"){
-                              resp.status(500).json(data);
+                              resp.status(200).json(data);
                           } 
 
                       }
@@ -141,7 +140,7 @@ module.exports = app => {
               } else {
 
                   if(data.mensaje == 'Usuario no existe'){
-                      resp.status(500).json({
+                      resp.status(200).json({
                         success: true,
                         mensage: 'EL usuario no se encuentra en la db'
                       });
@@ -187,8 +186,6 @@ module.exports = app => {
 
                   var data = {
                       email: request.body.email,
-                      password: hash,
-                      state: request.body.state,
                       rango: request.body.rango
                   };
 
@@ -202,7 +199,7 @@ module.exports = app => {
                           });
                       } else {
                           if(result.mensaje == 'Usuario no existe'){
-                              resp.status(500).json({
+                              resp.status(200).json({
                                 success: true,
                                 mensage: 'EL usuario no se encuentra en la db'
                               });
@@ -262,7 +259,7 @@ module.exports = app => {
                   }
 
                   if(result.mensaje == 'Credenciales no validas'){
-                      resp.status(500).json({
+                      resp.status(200).json({
                           success: false,
                           mensage: 'Credenciales no validas'
                       });

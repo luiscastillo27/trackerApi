@@ -57,14 +57,14 @@ module.exports = app => {
           } else {
 
               if (data.mensaje == 'La coordenada ya existe') {
-                resp.status(500).json({
+                resp.status(200).json({
                   success: false,
                   mensage: 'La coordenada ya existe'
                 });
               }
 
               if (data.mensaje == 'La coordenada ha sido registrado con exito') {
-                resp.status(500).json({
+                resp.status(200).json({
                   success: false,
                   mensage: 'La coordenada ha sido registrado con exito',
                   data: data.id
@@ -91,7 +91,7 @@ module.exports = app => {
           } else {
 
               if(data.mensaje == 'La coordenada ya no existe'){
-                  resp.status(500).json({
+                  resp.status(200).json({
                     success: true,
                     mensage: 'La coordenada no se encuentra en la db'
                   });
@@ -124,7 +124,7 @@ module.exports = app => {
           } else {
 
               if(result.mensaje == 'La coordenada no existe'){
-                  resp.status(500).json({
+                  resp.status(200).json({
                     success: true,
                     mensage: 'La coordenada no se encuentra en la db'
                   });

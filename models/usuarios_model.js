@@ -61,8 +61,8 @@ userModel.insertarUsuario = (data, resp) => {
                       throw err;
                     } else {
                       resp(null, {
-                        "mensaje": "El usuario ha sido registrado con exito",
-                        "id": result
+                        'mensaje': 'El usuario ha sido registrado con exito',
+                        'id': result
                       });
                     }
                 });
@@ -121,8 +121,6 @@ userModel.actualizarUsuario = (id, data, resp) => {
                 var sql = `
                   UPDATE usuarios SET 
                   email = ${connection.escape(data.email)} ,
-                  password = ${connection.escape(data.password)} ,
-                  state = ${connection.escape(data.state)} ,
                   rango = ${connection.escape(data.rango)}
                   WHERE idUsuario = ${connection.escape(id)}
                 `;

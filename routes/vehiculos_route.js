@@ -61,14 +61,14 @@ module.exports = app => {
           } else {
 
               if (data.mensaje == 'El vehiculo ya existe') {
-                resp.status(500).json({
+                resp.status(200).json({
                   success: false,
                   mensage: 'El vehiculo ya existe'
                 });
               }
 
               if (data.mensaje == 'El vehiculo ha sido registrado con exito') {
-                resp.status(500).json({
+                resp.status(200).json({
                   success: false,
                   mensage: 'El vehiculo ha sido registrado con exito',
                   data: data.id
@@ -95,7 +95,7 @@ module.exports = app => {
           } else {
 
               if(data.mensaje == 'El vehiculo ya no existe'){
-                  resp.status(500).json({
+                  resp.status(200).json({
                     success: true,
                     mensage: 'EL vehiculo no se encuentra en la db'
                   });
@@ -132,7 +132,7 @@ module.exports = app => {
           } else {
 
               if(result.mensaje == 'El vehiculo no existe'){
-                  resp.status(500).json({
+                  resp.status(200).json({
                     success: true,
                     mensage: 'EL vehiculo no se encuentra en la db'
                   });

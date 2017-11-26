@@ -92,14 +92,14 @@ module.exports = app => {
           } else {
 
               if (data.mensaje == 'La ruta ya existe') {
-                resp.status(500).json({
+                resp.status(200).json({
                   success: false,
                   mensage: 'La ruta ya existe'
                 });
               }
 
               if (data.mensaje == 'La ruta ha sido registrada con exito') {
-                resp.status(500).json({
+                resp.status(200).json({
                   success: false,
                   mensage: 'La ruta ha sido registrada con exito',
                   data: data.id
@@ -126,7 +126,7 @@ module.exports = app => {
           } else {
 
               if(data.mensaje == 'La pieza ya no existe'){
-                  resp.status(500).json({
+                  resp.status(200).json({
                     success: true,
                     mensage: 'La pieza no se encuentra en la base de datos'
                   });
@@ -163,7 +163,7 @@ module.exports = app => {
           } else {
 
               if(result.mensaje == 'La ruta no existe'){
-                  resp.status(500).json({
+                  resp.status(200).json({
                     success: true,
                     mensage: 'La ruta no se encuentra en la base de datos'
                   });
