@@ -7,7 +7,7 @@ connection.connect();
 let PiezasModel = {};
 
 //LISTAR TODOS LOS SENSORES
-PiezasModel.listarCoordenada = (resp) => {
+PiezasModel.listarPiezas = (resp) => {
 
     if (connection) {
         var sql = "SELECT * FROM piezas ORDER BY idPieza";
@@ -24,7 +24,7 @@ PiezasModel.listarCoordenada = (resp) => {
 };
 
 //OBTENER PIEZA
-PiezasModel.obtenerPieza = (id, resp) => {
+PiezasModel.obtenerPiezas = (id, resp) => {
 
     if (connection) {
         var sql = `SELECT * FROM piezas WHERE idPieza = ${connection.escape(id)}`;
@@ -41,7 +41,7 @@ PiezasModel.obtenerPieza = (id, resp) => {
 };
 
 //INSERTAR SENSORES
-PiezasModel.insertarPieza = (data, resp) => {
+PiezasModel.insertarPiezas = (data, resp) => {
 
     if (connection) {
         
@@ -62,7 +62,7 @@ PiezasModel.insertarPieza = (data, resp) => {
 };
 
 //ELIMINAR SENSORES
-PiezasModel.eliminarPieza = (id, resp) => {
+PiezasModel.eliminarPiezas = (id, resp) => {
 
     if (connection) {
         var exist = `SELECT * FROM piezas WHERE idPieza = ${connection.escape(id)}`;

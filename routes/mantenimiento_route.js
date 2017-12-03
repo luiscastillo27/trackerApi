@@ -5,7 +5,7 @@ module.exports = app => {
   //LISTAR TODOS LOS VEHICULOS
   app.get('/mantenimiento/listarTodos', (request, resp) => {
 
-      MantenimientoModel.listarTodosMantenimiento( (err, data) => {
+      MantenimientoModel.listarTodosMantenimientos( (err, data) => {
           
           if(data){
               resp.status(200).json({
@@ -29,7 +29,7 @@ module.exports = app => {
   app.get('/mantenimiento/listar/:idUsuario', (request, resp) => {
 
       var id = request.params.idUsuario;
-      MantenimientoModel.listarMantenimiento(id, (err, data) => {
+      MantenimientoModel.listarMantenimientos(id, (err, data) => {
           
           if(data){
               resp.status(200).json({
@@ -52,7 +52,7 @@ module.exports = app => {
   app.get('/mantenimiento/obtener/:idMantenimiento', (request, resp) => {
 
       var id = request.params.idMantenimiento;
-      MantenimientoModel.obtenerMantenimiento(id, (err, data) => {
+      MantenimientoModel.obtenerMantenimientos(id, (err, data) => {
 
           if(err){
               resp.status(500).json({
@@ -82,7 +82,7 @@ module.exports = app => {
           fechaT: request.body.fechaT
       };
 
-      MantenimientoModel.insertarMantenimiento(data, (err, data) => {
+      MantenimientoModel.insertarMantenimientos(data, (err, data) => {
 
           if(err){
               resp.status(500).json({
@@ -116,7 +116,7 @@ module.exports = app => {
   app.delete('/mantenimiento/eliminar/:idMantenimiento', (request, resp) => {
 
       var id = request.params.idMantenimiento;
-      MantenimientoModel.eliminarMantenimiento(id, (err, data) => {
+      MantenimientoModel.eliminarMantenimientos(id, (err, data) => {
 
           if(err){
               resp.status(500).json({
@@ -152,7 +152,7 @@ module.exports = app => {
       };
 
       var id = request.params.idMantenimiento;
-      MantenimientoModel.actualizarMantenimiento(id, data, (err, result) => {
+      MantenimientoModel.actualizarMantenimientos(id, data, (err, result) => {
 
           if(err){
               resp.status(500).json({

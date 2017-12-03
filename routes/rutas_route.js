@@ -51,7 +51,7 @@ module.exports = app => {
   app.get('/rutas/obtener/:idRuta', (request, resp) => {
 
       var id = request.params.idRuta;
-      RutasModel.obtenerRuta(id, (err, data) => {
+      RutasModel.obtenerRutas(id, (err, data) => {
 
           if(err){
               resp.status(500).json({
@@ -82,7 +82,7 @@ module.exports = app => {
           estado: request.body.estado
       };
 
-      RutasModel.insertarRuta(data, (err, data) => {
+      RutasModel.insertarRutas(data, (err, data) => {
 
           if(err){
               resp.status(500).json({
@@ -116,7 +116,7 @@ module.exports = app => {
   app.delete('/rutas/eliminar/:idRuta', (request, resp) => {
 
       var id = request.params.idRuta;
-      RutasModel.eliminarRuta(id, (err, data) => {
+      RutasModel.eliminarRutas(id, (err, data) => {
 
           if(err){
               resp.status(500).json({

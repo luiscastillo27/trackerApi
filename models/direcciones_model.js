@@ -7,7 +7,7 @@ connection.connect();
 let direccionesModel = {};
 
 //LISTAR TODOS LOS SENSORES
-direccionesModel.listarDireccion = (resp) => {
+direccionesModel.listarDirecciones = (resp) => {
 
     if (connection) {
         var sql = "SELECT * FROM dirrecciones ORDER BY idDireccion";
@@ -24,7 +24,7 @@ direccionesModel.listarDireccion = (resp) => {
 };
 
 //OBTENER SENSORES
-direccionesModel.obtenerDireccion = (id, resp) => {
+direccionesModel.obtenerDirecciones = (id, resp) => {
 
     if (connection) {
         var sql = `SELECT * FROM dirrecciones WHERE idDireccion = ${connection.escape(id)}`;
@@ -41,7 +41,7 @@ direccionesModel.obtenerDireccion = (id, resp) => {
 };
 
 //INSERTAR SENSORES
-direccionesModel.insertarDireccion = (data, resp) => {
+direccionesModel.insertarDirecciones = (data, resp) => {
 
     if (connection) {
            var sql = 'INSERT INTO dirrecciones SET ?';
@@ -61,7 +61,7 @@ direccionesModel.insertarDireccion = (data, resp) => {
 };
 
 //ELIMINAR SENSORES
-direccionesModel.eliminarDireccion = (id, resp) => {
+direccionesModel.eliminarDirecciones = (id, resp) => {
 
     if (connection) {
         var exist = `SELECT * FROM dirrecciones WHERE idDireccion = ${connection.escape(id)}`;
@@ -91,7 +91,7 @@ direccionesModel.eliminarDireccion = (id, resp) => {
 };
 
 //ACTUALIZAR SENSORES
-direccionesModel.actualizarDireccion = (id, data, resp) => {
+direccionesModel.actualizarDirecciones = (id, data, resp) => {
 
     if (connection) {
         var exist = `SELECT * FROM dirrecciones WHERE idDireccion = ${connection.escape(id)}`;

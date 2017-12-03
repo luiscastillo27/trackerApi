@@ -7,7 +7,7 @@ connection.connect();
 let mantenimientoModel = {};
 
 //LISTAR TODOS MANTENIMIENTO
-mantenimientoModel.listarTodosMantenimiento = (resp) => {
+mantenimientoModel.listarTodosMantenimientos = (resp) => {
 
     if (connection) {
         var sql = `
@@ -26,7 +26,7 @@ mantenimientoModel.listarTodosMantenimiento = (resp) => {
 };
 
 //LISTAR TODOS MANTENIMIENTO
-mantenimientoModel.listarMantenimiento = (id, resp) => {
+mantenimientoModel.listarMantenimientos = (id, resp) => {
 
     if (connection) {
         var sql = `
@@ -50,7 +50,7 @@ mantenimientoModel.listarMantenimiento = (id, resp) => {
 };
 
 //OBTENER SENSORES
-mantenimientoModel.obtenerMantenimiento = (id, resp) => {
+mantenimientoModel.obtenerMantenimientos = (id, resp) => {
 
     if (connection) {
         var sql = `
@@ -74,7 +74,7 @@ mantenimientoModel.obtenerMantenimiento = (id, resp) => {
 };
 
 //INSERTAR SENSORES
-mantenimientoModel.insertarMantenimiento = (data, resp) => {
+mantenimientoModel.insertarMantenimientos = (data, resp) => {
 
     if (connection) {
       
@@ -95,7 +95,7 @@ mantenimientoModel.insertarMantenimiento = (data, resp) => {
 };
 
 //ELIMINAR SENSORES
-mantenimientoModel.eliminarMantenimiento = (id, resp) => {
+mantenimientoModel.eliminarMantenimientos = (id, resp) => {
 
     if (connection) {
         var exist = `SELECT * FROM mantenimientos WHERE idMantenimiento = ${connection.escape(id)}`;
@@ -125,7 +125,7 @@ mantenimientoModel.eliminarMantenimiento = (id, resp) => {
 };
 
 //ACTUALIZAR SENSORES
-mantenimientoModel.actualizarMantenimiento = (id, data, resp) => {
+mantenimientoModel.actualizarMantenimientos = (id, data, resp) => {
 
     if (connection) {
         var exist = `SELECT * FROM mantenimientos WHERE idMantenimiento = ${connection.escape(id)}`;

@@ -5,7 +5,7 @@ module.exports = app => {
   //LISTAR TODOS LOS VEHICULOS
   app.get('/vehiculos/listar', (request, resp) => {
 
-      VehiculosModel.listarSensores((err, data) => {
+      VehiculosModel.listarVechiculos((err, data) => {
           
           if(data){
               resp.status(200).json(data);
@@ -24,7 +24,7 @@ module.exports = app => {
   app.get('/vehiculos/obtener/:idVehiculo', (request, resp) => {
 
       var id = request.params.idVehiculo;
-      VehiculosModel.obtenerSensores(id, (err, data) => {
+      VehiculosModel.obtenerVechiculos(id, (err, data) => {
 
           if(err){
               resp.status(500).json({
@@ -51,7 +51,7 @@ module.exports = app => {
           anio: request.body.anio
       };
 
-      VehiculosModel.insertarSensores(data, (err, data) => {
+      VehiculosModel.insertarVechiculos(data, (err, data) => {
 
           if(err){
               resp.status(500).json({
@@ -85,7 +85,7 @@ module.exports = app => {
   app.delete('/vehiculos/eliminar/:idVehiculo', (request, resp) => {
 
       var id = request.params.idVehiculo;
-      VehiculosModel.eliminarSensores(id, (err, data) => {
+      VehiculosModel.eliminarVechiculos(id, (err, data) => {
 
           if(err){
               resp.status(500).json({
@@ -122,7 +122,7 @@ module.exports = app => {
       };
 
       var id = request.params.idVehiculo;
-      VehiculosModel.actualizarSensores(id, data, (err, result) => {
+      VehiculosModel.actualizarVechiculos(id, data, (err, result) => {
 
           if(err){
               resp.status(500).json({

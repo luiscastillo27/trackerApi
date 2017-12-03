@@ -29,7 +29,7 @@ userModel.listarUsuarios = (resp) => {
 };
 
 //OBTENER USUARIOS
-userModel.obtenerUsuario = (id, resp) => {
+userModel.obtenerUsuarios = (id, resp) => {
 
     if (connection) {
         var sql = `SELECT idUsuario, email, state, rango FROM usuarios WHERE idUsuario = ${connection.escape(id)}`;
@@ -46,7 +46,7 @@ userModel.obtenerUsuario = (id, resp) => {
 };
 
 //INSERTAR USUARIO
-userModel.insertarUsuario = (data, resp) => {
+userModel.insertarUsuarios = (data, resp) => {
 
     if (connection) {
         var exist = `SELECT * FROM usuarios WHERE email = ${connection.escape(data.email)}`;
@@ -80,7 +80,7 @@ userModel.insertarUsuario = (data, resp) => {
 };
 
 //ELIMINAR USUARIOS
-userModel.eliminarUsuario = (id, resp) => {
+userModel.eliminarUsuarios = (id, resp) => {
 
     if (connection) {
         var exist = `SELECT * FROM usuarios WHERE idUsuario = ${connection.escape(id)}`;
@@ -110,7 +110,7 @@ userModel.eliminarUsuario = (id, resp) => {
 };
 
 //ACTUALIZAR USUARIOS
-userModel.actualizarUsuario = (id, data, resp) => {
+userModel.actualizarUsuarios = (id, data, resp) => {
 
     if (connection) {
         var exist = `SELECT * FROM usuarios WHERE idUsuario = ${connection.escape(id)}`;
@@ -149,7 +149,7 @@ userModel.actualizarUsuario = (id, data, resp) => {
 
 
 //AUTENTICAR USUARIOS
-userModel.autenticarUsuario = (data, resp) => {
+userModel.autenticarUsuarios = (data, resp) => {
 
     if (connection) {
 

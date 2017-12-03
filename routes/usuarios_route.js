@@ -40,7 +40,7 @@ module.exports = app => {
       // } else {
 
           var id = request.params.idUsuario;
-          UserModel.obtenerUsuario(id, (err, data) => {
+          UserModel.obtenerUsuarios(id, (err, data) => {
 
               if(err){
                   resp.status(500).json({
@@ -86,7 +86,7 @@ module.exports = app => {
                       rango: request.body.rango
                   };
 
-                  UserModel.insertarUsuario(data, (err, data) => {
+                  UserModel.insertarUsuarios(data, (err, data) => {
 
                       if(err){
                           resp.status(500).json({
@@ -130,7 +130,7 @@ module.exports = app => {
       // } else {
 
           var id = request.params.idUsuario;
-          UserModel.eliminarUsuario(id, (err, data) => {
+          UserModel.eliminarUsuarios(id, (err, data) => {
 
               if(err){
                   resp.status(500).json({
@@ -190,7 +190,7 @@ module.exports = app => {
                   };
 
                   var id = request.params.idUsuario;
-                  UserModel.actualizarUsuario(id, data, (err, result) => {
+                  UserModel.actualizarUsuarios(id, data, (err, result) => {
                       
                       if(err){
                           resp.status(500).json({
@@ -241,7 +241,7 @@ module.exports = app => {
               password: request.body.password
           }
 
-          UserModel.autenticarUsuario(data, (err, result) => {
+          UserModel.autenticarUsuarios(data, (err, result) => {
 
               if(err){
                   resp.status(500).json({

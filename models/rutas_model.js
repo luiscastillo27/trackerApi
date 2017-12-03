@@ -49,7 +49,7 @@ RutasModel.listarRutas = (id, resp) => {
 };
 
 //OBTENER RUTA
-RutasModel.obtenerRuta = (id, resp) => {
+RutasModel.obtenerRutas = (id, resp) => {
 
     if (connection) {
 
@@ -75,7 +75,7 @@ RutasModel.obtenerRuta = (id, resp) => {
 };
 
 //INSERTAR RUTA
-RutasModel.insertarRuta = (data, resp) => {
+RutasModel.insertarRutas = (data, resp) => {
 
     if (connection) {
         
@@ -96,7 +96,7 @@ RutasModel.insertarRuta = (data, resp) => {
 };
 
 //ELIMINAR SENSORES
-RutasModel.eliminarRuta = (id, resp) => {
+RutasModel.eliminarRutas = (id, resp) => {
 
     if (connection) {
         var exist = `SELECT * FROM rutas WHERE idRuta = ${connection.escape(id)}`;

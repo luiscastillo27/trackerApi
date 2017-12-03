@@ -7,7 +7,7 @@ connection.connect();
 let vehiculosModel = {};
 
 //LISTAR TODOS LOS SENSORES
-vehiculosModel.listarSensores = (resp) => {
+vehiculosModel.listarVechiculos = (resp) => {
 
     if (connection) {
         var sql = "SELECT * FROM vehiculos ORDER BY idVehiculo";
@@ -24,7 +24,7 @@ vehiculosModel.listarSensores = (resp) => {
 };
 
 //OBTENER SENSORES
-vehiculosModel.obtenerSensores = (id, resp) => {
+vehiculosModel.obtenerVechiculos = (id, resp) => {
 
     if (connection) {
         var sql = `SELECT * FROM vehiculos WHERE idVehiculo = ${connection.escape(id)}`;
@@ -41,7 +41,7 @@ vehiculosModel.obtenerSensores = (id, resp) => {
 };
 
 //INSERTAR SENSORES
-vehiculosModel.insertarSensores = (data, resp) => {
+vehiculosModel.insertarVechiculos = (data, resp) => {
 
     if (connection) {
         var exist = `SELECT * FROM vehiculos WHERE matricula = ${connection.escape(data.matricula)}`;
@@ -76,7 +76,7 @@ vehiculosModel.insertarSensores = (data, resp) => {
 };
 
 //ELIMINAR SENSORES
-vehiculosModel.eliminarSensores = (id, resp) => {
+vehiculosModel.eliminarVechiculos = (id, resp) => {
 
     if (connection) {
         var exist = `SELECT * FROM vehiculos WHERE idVehiculo = ${connection.escape(id)}`;
@@ -106,7 +106,7 @@ vehiculosModel.eliminarSensores = (id, resp) => {
 };
 
 //ACTUALIZAR SENSORES
-vehiculosModel.actualizarSensores = (id, data, resp) => {
+vehiculosModel.actualizarVechiculos = (id, data, resp) => {
 
     if (connection) {
         var exist = `SELECT * FROM vehiculos WHERE idVehiculo = ${connection.escape(id)}`;

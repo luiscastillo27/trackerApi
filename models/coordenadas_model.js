@@ -7,7 +7,7 @@ connection.connect();
 let coordenadaModel = {};
 
 //LISTAR TODOS LOS SENSORES
-coordenadaModel.listarCoordenada = (resp) => {
+coordenadaModel.listarCoordenadas = (resp) => {
 
     if (connection) {
         var sql = "SELECT * FROM coordenadas ORDER BY idCoordenada";
@@ -24,7 +24,7 @@ coordenadaModel.listarCoordenada = (resp) => {
 };
 
 //OBTENER SENSORES
-coordenadaModel.obtenerCoordenada = (id, resp) => {
+coordenadaModel.obtenerCoordenadas = (id, resp) => {
 
     if (connection) {
         var sql = `SELECT * FROM coordenadas WHERE idCoordenada = ${connection.escape(id)}`;
@@ -41,7 +41,7 @@ coordenadaModel.obtenerCoordenada = (id, resp) => {
 };
 
 //INSERTAR SENSORES
-coordenadaModel.insertarCoordenada = (data, resp) => {
+coordenadaModel.insertarCoordenadas = (data, resp) => {
 
     if (connection) {
         
@@ -62,7 +62,7 @@ coordenadaModel.insertarCoordenada = (data, resp) => {
 };
 
 //ELIMINAR SENSORES
-coordenadaModel.eliminarCoordenada = (id, resp) => {
+coordenadaModel.eliminarCoordenadas = (id, resp) => {
 
     if (connection) {
         var exist = `SELECT * FROM coordenadas WHERE idCoordenada = ${connection.escape(id)}`;
@@ -92,7 +92,7 @@ coordenadaModel.eliminarCoordenada = (id, resp) => {
 };
 
 //ACTUALIZAR SENSORES
-coordenadaModel.actualizarCoordenada = (id, data, resp) => {
+coordenadaModel.actualizarCoordenadas = (id, data, resp) => {
 
     if (connection) {
         var exist = `SELECT * FROM coordenadas WHERE idCoordenada = ${connection.escape(id)}`;

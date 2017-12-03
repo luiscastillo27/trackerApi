@@ -5,7 +5,7 @@ module.exports = app => {
   //LISTAR TODOS LOS VEHICULOS
   app.get('/direcciones/listar', (request, resp) => {
 
-      DireccionModel.listarDireccion((err, data) => {
+      DireccionModel.listarDirecciones((err, data) => {
           
           if(data){
               resp.status(200).json(data);
@@ -24,7 +24,7 @@ module.exports = app => {
   app.get('/direcciones/obtener/:idDireccion', (request, resp) => {
 
       var id = request.params.idDireccion;
-      DireccionModel.obtenerDireccion(id, (err, data) => {
+      DireccionModel.obtenerDirecciones(id, (err, data) => {
 
           if(err){
               resp.status(500).json({
@@ -53,7 +53,7 @@ module.exports = app => {
           numero: request.body.numero
       };
 
-      DireccionModel.insertarDireccion(data, (err, data) => {
+      DireccionModel.insertarDirecciones(data, (err, data) => {
 
           if(err){
               resp.status(500).json({
@@ -87,7 +87,7 @@ module.exports = app => {
   app.delete('/direcciones/eliminar/:idDireccion', (request, resp) => {
 
       var id = request.params.idDireccion;
-      DireccionModel.eliminarDireccion(id, (err, data) => {
+      DireccionModel.eliminarDirecciones(id, (err, data) => {
 
           if(err){
               resp.status(500).json({
@@ -126,7 +126,7 @@ module.exports = app => {
       };
 
       var id = request.params.idDireccion;
-      DireccionModel.actualizarDireccion(id, data, (err, result) => {
+      DireccionModel.actualizarDirecciones(id, data, (err, result) => {
 
           if(err){
               resp.status(500).json({

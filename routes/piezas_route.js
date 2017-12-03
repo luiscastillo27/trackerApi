@@ -5,7 +5,7 @@ module.exports = app => {
   //LISTAR TODOS LAS PIEZAS
   app.get('/piezas/listar', (request, resp) => {
 
-      PiezasModel.listarCoordenada((err, data) => {
+      PiezasModel.listarPiezas((err, data) => {
           //console.log(err);
 		  //console.log(data);
           if(data){
@@ -25,7 +25,7 @@ module.exports = app => {
   app.get('/piezas/obtener/:idPieza', (request, resp) => {
 
       var id = request.params.idPieza;
-      PiezasModel.obtenerPieza(id, (err, data) => {
+      PiezasModel.obtenerPiezas(id, (err, data) => {
 
           if(err){
               resp.status(500).json({
@@ -48,7 +48,7 @@ module.exports = app => {
           nombre: request.body.nombre
       };
 
-      PiezasModel.insertarPieza(data, (err, data) => {
+      PiezasModel.insertarPiezas(data, (err, data) => {
 
           if(err){
               resp.status(500).json({
@@ -82,7 +82,7 @@ module.exports = app => {
   app.delete('/piezas/eliminar/:idPieza', (request, resp) => {
 
       var id = request.params.idPieza;
-      PiezasModel.eliminarPieza(id, (err, data) => {
+      PiezasModel.eliminarPiezas(id, (err, data) => {
 
           if(err){
               resp.status(500).json({
