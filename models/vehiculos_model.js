@@ -10,7 +10,10 @@ let vehiculosModel = {};
 vehiculosModel.listarVechiculos = (resp) => {
 
     if (connection) {
-        var sql = "SELECT * FROM vehiculos ORDER BY idVehiculo";
+        var sql =  `select vehiculos.idVehiculo, usuarios.email, vehiculos.marca, vehiculos.modelo, vehiculos.matricula,
+                    vehiculos.tipo, vehiculos.anio
+                    from vehiculos 
+                    join usuarios on vehiculos.idUsuario = usuarios.idUsuario`;
         connection.query(sql,(err, result) => {
             if (err) {
               throw err;

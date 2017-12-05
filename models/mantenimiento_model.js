@@ -10,9 +10,12 @@ let mantenimientoModel = {};
 mantenimientoModel.listarTodosMantenimientos = (resp) => {
 
     if (connection) {
-        var sql = `
-            SELECT * FROM mantenimientos ORDER BY idVehiculo
-        `;
+        var sql = `SELECT mantenimientos.idMantenimiento, vehiculos.modelo, vehiculos.matricula, mantenimientos.tipo, 
+                  mantenimientos.fechaI, mantenimientos.fechaT, coordenadas.latitud, coordenadas.logitud
+                  FROM mantenimientos
+                  JOIN vehiculos ON mantenimientos.idVehiculo = vehiculos.idVehiculo
+                  JOIN coordenadas ON mantenimientos.idCoordenada = coordenadas.idCoordenada`;
+
         connection.query(sql,(err, result) => {
             if (err) {
               throw err;
