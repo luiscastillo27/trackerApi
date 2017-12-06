@@ -76,11 +76,41 @@ mantenimientoModel.obtenerMantenimientos = (id, resp) => {
 
 };
 
+
+//OBTENER SENSORES
+mantenimientoModel.obtenerTodos = (id, resp) => {
+
+    if (connection) {
+        var sql = `
+            SELECT mantenimientos.idMantenimiento, mantenimientos.idVehiculo, mantenimientos.idCoordenada,  vehiculos.marca, vehiculos.modelo, vehiculos.matricula, vehiculos.tipo, vehiculos.anio,
+            mantenimientos.tipo, mantenimientos.fechaI, mantenimientos.fechaT
+            FROM vehiculos
+            JOIN  mantenimientos ON mantenimientos.idVehiculo = vehiculos.idVehiculo
+            WHERE mantenimientos.idMantenimiento = ${connection.escape(id)}
+        `;
+        connection.query(sql,(err, result) => {
+            if (err) {
+              throw err;
+            }
+            else {
+              resp(null, result);
+            }
+        });
+    }
+
+};
+
 //INSERTAR SENSORES
 mantenimientoModel.insertarMantenimientos = (data, resp) => {
 
+
     if (connection) {
-      
+        var exist = `SELECT * FROM mantenimientos WHERE idVehiculo = ${connection.escape(data.idVehiculo)} && idCoordenada = ${connection.escape(data.idVehiculo)}`;
+
+        connection.query(exist, (err, ok) => {
+
+            if(ok.length == 0){
+
                 var sql = 'INSERT INTO mantenimientos SET ?';
                 connection.query(sql, data, (err, result) => {
                     if (err) {
@@ -93,7 +123,15 @@ mantenimientoModel.insertarMantenimientos = (data, resp) => {
                     }
                 });
 
-            } 
+            } else {
+                resp(null, {
+                  'mensaje': 'El mantenimiento ya existe'
+                })
+            }
+
+        });
+        
+    }
 
 };
 
@@ -118,7 +156,7 @@ mantenimientoModel.eliminarMantenimientos = (id, resp) => {
                 });
             } else {
                 resp(null, {
-                  'mensaje': 'El mantenimientos ya no existe'
+                  'mensaje': 'El mantenimiento ya no existe'
                 })
             }
             

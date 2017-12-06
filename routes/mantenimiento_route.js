@@ -71,6 +71,29 @@ module.exports = app => {
 
   });
 
+
+  app.get('/mantenimiento/obtenerTodos/:idMantenimiento', (request, resp) => {
+
+      var id = request.params.idMantenimiento;
+      MantenimientoModel.obtenerTodos(id, (err, data) => {
+
+          if(err){
+              resp.status(500).json({
+                success: false,
+                mensage: err
+              });
+          } else {
+              resp.status(200).json({
+                  success: false,
+                  mensage: 'Peticion hecha correctamente',
+                  data: data
+              });
+          }
+        
+      });
+
+  });
+
   //AGREGA NUEVO VEHICULOS
   app.post('/mantenimiento/agregar', (request, resp) => {
 
@@ -98,11 +121,10 @@ module.exports = app => {
                 });
               }
 
-              if (data.mensaje == 'El mantenimiento ha sido registrado con exito') {
+              if (data.mensaje == 'El mantenimientos ha sido registrado con exito') {
                 resp.status(200).json({
                   success: false,
                   mensage: 'El mantenimiento ha sido registrado con exito',
-                  data: data.id
                 });
               }
 
@@ -128,11 +150,14 @@ module.exports = app => {
               if(data.mensaje == 'El mantenimiento ya no existe'){
                   resp.status(200).json({
                     success: true,
-                    mensage: 'EL mantenimiento no se encuentra en la db'
+                    mensage: 'El mantenimiento ya no existe'
                   });
               }
               if(data.mensaje == 'Se ha eliminado con exito'){
-                  resp.status(200).json(data);
+                  resp.status(200).json({
+                    success: true,
+                    mensage: 'Se ha eliminado con exito'
+                  });
               }   
           }
 

@@ -101,7 +101,10 @@ module.exports = app => {
                   });
               }
               if(data.mensaje == 'Se ha eliminado con exito'){
-                  resp.status(200).json(data);
+                  resp.status(200).json({
+                    success: true,
+                    mensage: 'Se ha eliminado con exito'
+                  });
               }   
           }
 

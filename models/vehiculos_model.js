@@ -11,7 +11,7 @@ vehiculosModel.listarVechiculos = (resp) => {
 
     if (connection) {
         var sql =  `select vehiculos.idVehiculo, usuarios.email, vehiculos.marca, vehiculos.modelo, vehiculos.matricula,
-                    vehiculos.tipo, vehiculos.anio
+                    vehiculos.tipo, vehiculos.anio, vehiculos.idUsuario
                     from vehiculos 
                     join usuarios on vehiculos.idUsuario = usuarios.idUsuario`;
         connection.query(sql,(err, result) => {

@@ -5,7 +5,7 @@ module.exports = app => {
   //LISTAR TODOS LOS VEHICULOS
   app.get('/coordenada/listar', (request, resp) => {
 
-      CoordenadaModel.listarCoordenada((err, data) => {
+      CoordenadaModel.listarCoordenadas((err, data) => {
           
           if(data){
               resp.status(200).json(data);
