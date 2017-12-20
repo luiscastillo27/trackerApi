@@ -2,14 +2,13 @@
 
 var momento = require('moment');
 var result = 'Correcto';
-
 //VALIDAR REGISTRAR USUARIOS
-exports.agregarValid = function(data){
+exports.agregarValid = function(req){
 
-	var correo = data.body.email;
-	var password = data.body.password;
-	var state = data.body.state;
-	var rango = data.body.rango;
+	var correo = req.body.email;
+	var password = req.body.password;
+	var state = req.body.state;
+	var rango = req.body.rango;
 
 	if(!correo && !password && !state && !rango){
 		
@@ -54,49 +53,29 @@ exports.agregarValid = function(data){
 }
 
 //VALIDAR LOGIN
-exports.loginValid = function(data){
+exports.loginValid = function(req){
 
-	var correo = data.body.email;
-	var password = data.body.password;
+	var correo = req.email;
+	var password = req.password;
 
-	if(!correo && !password){
-		
-		if(correo == null || correo.length == 0 || /^\s+$/.test(correo)){
-			result = 'El correo es obligatorio';
-		}
-
-		if(password == null || password.length == 0 || /^\s+$/.test(password)){
-			result = 'El password es obligatorio';
-		}
-
-	} else {
-
-		if(!(/\S+@\S+\.\S+/.test(correo))){
-		  	result = 'Este no es un correo valido';
-		}
-
-		if(password.length < 8) {
-			result = 'El password debe tener mas de 8 digitos';
-		}
-		
+	if(correo == undefined){
+		result = 'El correo es obligatorio';
 	}
 
-	return result;
+	return correo;
 
 }
 
 
 //VALIDAR ID
-exports.idValid = function(data){
+exports.idValid = function(req){	
 
-	var id = data.body.idUsuario;
-
-	if(!id){
-		
-		if(id == null || id.length == 0 || /^\s+$/.test(id)){
-			result = 'El id es obligatorio';
+	if(req){
+		if(isNaN(req)){
+			result = 'El id debe ser un numero';
+		} else {
+			result = 'Correcto';
 		}
-
 	} 
 
 	return result;

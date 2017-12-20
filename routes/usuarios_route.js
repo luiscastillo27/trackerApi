@@ -27,19 +27,19 @@ module.exports = app => {
   //OBTENER DATOS DEL USUARIO
   app.get('/usuarios/obtener/:idUsuario', (request, resp) => {
 
-        
-      // var valid = userValid.idValid(request);
+      var id = request.params.idUsuario;  
+      var valid = userValid.idValid(id);
 
-      // if(valid != "Correcto"){
+      if(valid != "Correcto"){
           
-      //     resp.status(500).json({
-      //         success: false,
-      //         mensage: valid
-      //     });
+          resp.status(422).json({
+              success: false,
+              mensage: valid
+          });
 
-      // } else {
+      } else {
 
-          var id = request.params.idUsuario;
+          
           UserModel.obtenerUsuarios(id, (err, data) => {
 
               if(err){
@@ -52,8 +52,9 @@ module.exports = app => {
               }
             
           });
+          
 
-      //}
+      }
 
   });
 
@@ -225,8 +226,8 @@ module.exports = app => {
   //AUTENTICAR USUARIO
   app.post('/usuarios/autenticar', (request, resp) => {
 
-      // var valid = userValid.loginValid(request);
-
+      var valid = userValid.loginValid(request);
+      console.log(valid);
       // if(valid != "Correcto"){
           
       //     resp.status(500).json({

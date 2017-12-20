@@ -116,7 +116,8 @@ sensoresModel.actualizarSensores = (id, data, resp) => {
 
                 var sql = `
                   UPDATE sensores SET 
-                  stock = ${connection.escape(data.stock)} ,
+                  valor = ${connection.escape(data.valor)},
+                  fecha = ${connection.escape(data.fecha)},
                   nombre = ${connection.escape(data.nombre)}
                   WHERE idSensor = ${connection.escape(id)}
                 `;

@@ -1,5 +1,7 @@
 const SensoresModel = require('../models/sensores_model');
 
+var f = new Date();
+
 module.exports = app => {
 
   //LISTAR TODOS LOS SENSORES
@@ -42,9 +44,11 @@ module.exports = app => {
   //AGREGA NUEVO SENSORES
   app.post('/sensores/agregar', (request, resp) => {
 
+      var fecha = Date.now();
       var data = {
-          stock: request.body.stock,
-          nombre: request.body.nombre
+          valor: request.body.valor,
+          nombre: request.body.nombre,
+          fecha: fecha
       };
 
       SensoresModel.insertarSensores(data, (err, data) => {
@@ -107,9 +111,11 @@ module.exports = app => {
   //ACTUALIZAR SENSORES
   app.put('/sensores/actualizar/:idSensor', (request, resp) => {
 
+      var fecha = Date.now();
       var data = {
-          stock: request.body.stock,
-          nombre: request.body.nombre
+          valor: request.body.valor,
+          nombre: request.body.nombre,
+          fecha: fecha
       };
 
       var id = request.params.idSensor;
