@@ -17,11 +17,11 @@
     "express": "^4.15.4",
     "express-validation": "^1.0.2",
     "jwt-simple": "^0.5.1",
-    "moment": "^2.19.1",
+    "moment": "^2.22.2",
     "morgan": "^1.8.2",
     "mysql": "^2.14.1"
   },
   "devDependencies": {
-    "nodemon": "^1.12.1"
+    "nodemon": "^1.17.5"
   }
 }
